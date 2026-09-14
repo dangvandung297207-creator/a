@@ -63,12 +63,12 @@ public final class ForgedToolHelper {
             * mat.sharpness()
             * Quality.performanceMult(data.score())
             * quench.hardnessMult()
-            * (angle != null ? angle.sharpnessMult() : 1.0F));
+            * (angle != null ? angle.sharpnessMult : 1.0F));
         float speed = baseAttackSpeed(data.toolKind()) + (handle.recoveryMult - 1.0F) * 0.4F;
         int maxDamage = Math.max(10, Math.round(mat.durability()
             * Quality.durabilityMult(data.score())
             * quench.toughnessMult()
-            * (angle != null ? angle.durabilityMult() : 1.0F)
+            * (angle != null ? angle.durabilityMult : 1.0F)
             * handle.durabilityMult));
         float damageParam = damage - tier.getAttackDamageBonus();
 

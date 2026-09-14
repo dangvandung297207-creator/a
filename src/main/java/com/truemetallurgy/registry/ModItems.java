@@ -26,6 +26,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -174,7 +175,7 @@ public final class ModItems {
         () -> new BlueprintItem("kings_edge"));
 
     public static final DeferredHolder<Item, SpawnEggItem> BLACKSMITH_SPAWN_EGG = ITEMS.register("blacksmith_spawn_egg",
-        () -> new SpawnEggItem(entityHolder(), 0x4a3220, 0xd97b2b, new Item.Properties()));
+        () -> new DeferredSpawnEggItem(entityHolder(), 0x4a3220, 0xd97b2b, new Item.Properties()));
 
     @SuppressWarnings("unchecked")
     private static Supplier<EntityType<? extends Mob>> entityHolder() {
