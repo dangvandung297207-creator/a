@@ -1,0 +1,71 @@
+name: Build and Commit JAR (force)
+
+on:
+  push:
+    branches: ['arena/01a0a113-a']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/01a0a113-a
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Build JAR
+        run: |
+          chmod +x gradlew
+          ./gradlew build --no-daemon --stacktrace
+          ls -lh build/libs/
+
+      - name: Copy to release
+        run: |
+          mkdir -p release
+          cp build/libs/enderblade-*.jar release/enderblade-1.0.0.jar
+          ls -lh release/
+
+      - name: Commit via API (force update)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Get current file sha if exists
+          set -e
+          SHA=$(gh api /repos/${{ github.repository }}/contents/release/enderblade-1.0.0.jar?ref=arena/01a0a113-a --jq .sha 2>/dev/null || echo "")
+          echo "Existing SHA: $SHA"
+          CONTENT=$(base64 -w 0 release/enderblade-1.0.0.jar)
+          if [ -z "$SHA" ]; then
+            gh api -X PUT /repos/${{ github.repository }}/contents/release/enderblade-1.0.0.jar \
+              -f message="ci: force update JAR via API" \
+              -f content="$CONTENT" \
+              -f branch="arena/01a0a113-a"
+          else
+            gh api -X PUT /repos/${{ github.repository }}/contents/release/enderblade-1.0.0.jar \
+              -f message="ci: force update JAR via API" \
+              -f content="$CONTENT" \
+              -f sha="$SHA" \
+              -f branch="arena/01a0a113-a"
+          fi
+
+      - name: Update Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="enderblade-1.0.0"
+          gh release delete "$TAG" -y 2>/dev/null || true
+          git tag -f "$TAG"
+          git push origin "$TAG" --force
+          gh release create "$TAG" release/enderblade-1.0.0.jar \
+            --title "Ender Blade 1.0.0" \
+            --notes "Đoản Kiếm Hư Không — NeoForge 1.21.1 full weapon mod. Built from arena/01a0a113-a" \
+            --latest
