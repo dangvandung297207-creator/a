@@ -6,11 +6,11 @@ import com.truemetallurgy.util.TMUtil;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.TagKey;
-import net.minecraft.tags.TagLookup;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.common.data.ItemTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
@@ -18,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
 /** Component tags used by assembly recipes and workstation filters. */
 public class TMItemTags extends ItemTagsProvider {
     public TMItemTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookup,
-            CompletableFuture<TagLookup<Block>> blockTags, ExistingFileHelper files) {
+            CompletableFuture<TagsProvider.TagLookup<Block>> blockTags, ExistingFileHelper files) {
         super(output, lookup, blockTags, TrueMetallurgy.MOD_ID, files);
     }
 

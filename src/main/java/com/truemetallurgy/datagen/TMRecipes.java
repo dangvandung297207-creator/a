@@ -194,15 +194,15 @@ public class TMRecipes extends RecipeProvider {
             .unlockedBy("has_book", has(Items.BOOK)).save(output, "blacksmith_journal");
     }
 
-    private static void handle(RecipeOutput output, net.minecraft.world.item.ItemLike result,
-            net.minecraft.world.item.ItemLike planks, String name) {
+    private static void handle(RecipeOutput output, net.minecraft.world.level.ItemLike result,
+            net.minecraft.world.level.ItemLike planks, String name) {
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, result, 2)
             .pattern("P").pattern("P")
             .define('P', planks)
             .unlockedBy("has_planks", has(planks)).save(output, name + "_handle");
     }
 
-    private static void wrap(RecipeOutput output, net.minecraft.world.item.ItemLike handle, String name) {
+    private static void wrap(RecipeOutput output, net.minecraft.world.level.ItemLike handle, String name) {
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.LEATHER_WRAPPED_HANDLE.get())
             .requires(handle).requires(Items.LEATHER).requires(Items.STRING)
             .unlockedBy("has_handle", has(handle)).save(output, "wrapped_" + name + "_handle");

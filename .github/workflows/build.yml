@@ -40,7 +40,7 @@ jobs:
       - name: Annotate errors
         if: failure()
         run: |
-          grep -E "\.java:[0-9]+: error" build.log | head -40 | while IFS= read -r line; do
+          grep -A3 -E "\.java:[0-9]+: error" build.log | head -120 | while IFS= read -r line; do
             echo "::error::$line"
           done
           grep -A6 "What went wrong:" build.log | head -20 | while IFS= read -r line; do
