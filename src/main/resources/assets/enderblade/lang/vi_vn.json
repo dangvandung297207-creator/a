@@ -1,0 +1,8 @@
+{
+  "item.enderblade.ender_blade": "Đoản Kiếm Hư Không",
+  "item.enderblade.ender_blade.desc.passive": "Chém Xuyên Không: 20% dịch chuyển hỗn loạn mục tiêu",
+  "item.enderblade.ender_blade.desc.active": "Shift + Chuột phải: Phóng / Hoán đổi Ảo Ảnh Ender",
+  "item.enderblade.ender_blade.desc.reach": "+1 Tầm đánh",
+  "itemGroup.enderblade": "Đoản Kiếm Hư Không",
+  "entity.enderblade.ender_phantom": "Ảo Ảnh Ender"
+}
