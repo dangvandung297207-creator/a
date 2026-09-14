@@ -56,6 +56,7 @@ public class GrindingScreen extends AbstractContainerScreen<GrindingMenu> {
     @Override
     protected void renderBg(GuiGraphics g, float partial, int mouseX, int mouseY) {
         g.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        ScreenUtil.slotFrames(g, leftPos, topPos, menu.slots);
         int pw = (int) (120F * menu.progress() / 100F);
         g.fill(leftPos + 28, topPos + 98, leftPos + 148, topPos + 104, 0xFF1A1210);
         if (pw > 0) g.fill(leftPos + 28, topPos + 98, leftPos + 28 + pw, topPos + 104, 0xFF7AB8FF);

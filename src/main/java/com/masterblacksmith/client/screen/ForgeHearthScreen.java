@@ -23,6 +23,7 @@ public class ForgeHearthScreen extends AbstractContainerScreen<ForgeHearthMenu> 
     @Override
     protected void renderBg(GuiGraphics g, float partial, int mouseX, int mouseY) {
         g.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        ScreenUtil.slotFrames(g, leftPos, topPos, menu.slots);
         // Forge temperature bar.
         int temp = menu.forgeTemp();
         int w = (int) (148F * Math.min(1F, temp / 1650F));

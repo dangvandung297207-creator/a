@@ -5,7 +5,6 @@ import com.masterblacksmith.ModMenus;
 import com.masterblacksmith.ModSounds;
 import com.masterblacksmith.blockentity.AssemblyTableBlockEntity;
 import com.masterblacksmith.forging.AssemblyLogic;
-import com.masterblacksmith.forging.QualityTier;
 import com.masterblacksmith.util.SoundUtil;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;

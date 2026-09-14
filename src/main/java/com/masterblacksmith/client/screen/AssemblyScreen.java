@@ -40,6 +40,7 @@ public class AssemblyScreen extends AbstractContainerScreen<AssemblyMenu> {
     @Override
     protected void renderBg(GuiGraphics g, float partial, int mouseX, int mouseY) {
         g.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        ScreenUtil.slotFrames(g, leftPos, topPos, menu.slots);
         int q = menu.predictedQuality();
         int w = (int) (120F * q / 100F);
         g.fill(leftPos + 28, topPos + 78, leftPos + 148, topPos + 84, 0xFF1A1210);
