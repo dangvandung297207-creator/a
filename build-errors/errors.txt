@@ -1,6 +1,0 @@
-/home/runner/work/a/a/src/main/java/com/enderblade/client/renderer/EndDimensionZoneRenderer.java:80: error: incompatible types: possible lossy conversion from double to float
-/home/runner/work/a/a/src/main/java/com/enderblade/client/renderer/EndDimensionZoneRenderer.java:92: error: incompatible types: possible lossy conversion from double to float
-  /home/runner/work/a/a/src/main/java/com/enderblade/client/renderer/EndDimensionZoneRenderer.java:80: error: incompatible types: possible lossy conversion from double to float
-  /home/runner/work/a/a/src/main/java/com/enderblade/client/renderer/EndDimensionZoneRenderer.java:92: error: incompatible types: possible lossy conversion from double to float
-/home/runner/work/a/a/src/main/java/com/enderblade/client/renderer/EndDimensionZoneRenderer.java:80: error: incompatible types: possible lossy conversion from double to float
-/home/runner/work/a/a/src/main/java/com/enderblade/client/renderer/EndDimensionZoneRenderer.java:92: error: incompatible types: possible lossy conversion from double to float
