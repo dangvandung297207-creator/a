@@ -112,10 +112,12 @@ public class VoidSlashEntity extends Entity {
         Vec3 center = position().add(0, HEIGHT * 0.5, 0);
         AABB box = new AABB(center, center).inflate(WIDTH * 0.6, HEIGHT * 0.6, REACH * 0.35);
 
-        LivingEntity owner = null;
+        final LivingEntity owner;
         if (ownerUuid != null) {
             Entity e = sl.getEntity(ownerUuid);
-            if (e instanceof LivingEntity le) owner = le;
+            owner = e instanceof LivingEntity le ? le : null;
+        } else {
+            owner = null;
         }
 
         List<LivingEntity> targets = sl.getEntitiesOfClass(LivingEntity.class, box,
