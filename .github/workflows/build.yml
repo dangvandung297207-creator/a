@@ -26,7 +26,29 @@ jobs:
           echo "/tmp/gradle-8.14.2/bin" >> "$GITHUB_PATH"
 
       - name: Build with Gradle
-        run: gradle build --no-daemon
+        run: |
+          gradle build --no-daemon 2>&1 | tee build.log
+          test "${PIPESTATUS[0]}" -eq 0
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build.log
+
+      - name: Annotate errors
+        if: failure()
+        run: |
+          grep -E "\.java:[0-9]+: error" build.log | head -40 | while IFS= read -r line; do
+            echo "::error::$line"
+          done
+          grep -A6 "What went wrong:" build.log | head -20 | while IFS= read -r line; do
+            echo "::error::gradle: $line"
+          done
+          grep -E "FAILED$" build.log | head -10 | while IFS= read -r line; do
+            echo "::error::task: $line"
+          done
 
       - name: Upload mod jar
         uses: actions/upload-artifact@v4
