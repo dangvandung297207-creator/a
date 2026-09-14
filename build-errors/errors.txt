@@ -1,0 +1,6 @@
+/home/runner/work/a/a/src/main/java/com/enderblade/entity/VoidSlashEntity.java:122: error: local variables referenced from a lambda expression must be final or effectively final
+/home/runner/work/a/a/src/main/java/com/enderblade/entity/VoidSlashEntity.java:122: error: local variables referenced from a lambda expression must be final or effectively final
+  /home/runner/work/a/a/src/main/java/com/enderblade/entity/VoidSlashEntity.java:122: error: local variables referenced from a lambda expression must be final or effectively final
+  /home/runner/work/a/a/src/main/java/com/enderblade/entity/VoidSlashEntity.java:122: error: local variables referenced from a lambda expression must be final or effectively final
+/home/runner/work/a/a/src/main/java/com/enderblade/entity/VoidSlashEntity.java:122: error: local variables referenced from a lambda expression must be final or effectively final
+/home/runner/work/a/a/src/main/java/com/enderblade/entity/VoidSlashEntity.java:122: error: local variables referenced from a lambda expression must be final or effectively final
