@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "item": "masterblacksmith:billet_iron"
+    },
+    "title": {
+      "translate": "adv.masterblacksmith.first_billet"
+    },
+    "description": {
+      "translate": "adv.masterblacksmith.first_billet.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "masterblacksmith:billet_iron",
+              "masterblacksmith:billet_copper",
+              "masterblacksmith:billet_steel",
+              "masterblacksmith:billet_tin"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "got"
+    ]
+  ],
+  "parent": "masterblacksmith:first_bloom"
+}

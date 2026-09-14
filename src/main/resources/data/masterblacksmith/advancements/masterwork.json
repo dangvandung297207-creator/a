@@ -1,0 +1,41 @@
+{
+  "display": {
+    "icon": {
+      "item": "masterblacksmith:forged_sword"
+    },
+    "title": {
+      "translate": "adv.masterblacksmith.masterwork"
+    },
+    "description": {
+      "translate": "adv.masterblacksmith.masterwork.desc"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "masterblacksmith:forged_sword",
+              "masterblacksmith:forged_axe",
+              "masterblacksmith:forged_pickaxe",
+              "masterblacksmith:forged_spear"
+            ],
+            "nbt": "{MBSIdentity:{Tier:\"masterwork\"}}"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "got"
+    ]
+  ],
+  "parent": "masterblacksmith:quenched"
+}

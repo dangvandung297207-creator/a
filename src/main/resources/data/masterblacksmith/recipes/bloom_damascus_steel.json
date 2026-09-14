@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "masterblacksmith:processed_damascus_steel"
+  },
+  "result": "masterblacksmith:bloom_damascus_steel",
+  "experience": 0.7,
+  "cookingtime": 200
+}

@@ -1,0 +1,24 @@
+{
+  "replace": false,
+  "values": [
+    "masterblacksmith:refractory_brick_block",
+    "masterblacksmith:forge_hearth_primitive",
+    "masterblacksmith:forge_hearth_iron",
+    "masterblacksmith:forge_hearth_steel",
+    "masterblacksmith:forge_hearth_master",
+    "masterblacksmith:anvil_basic",
+    "masterblacksmith:anvil_iron",
+    "masterblacksmith:anvil_steel",
+    "masterblacksmith:anvil_master",
+    "masterblacksmith:grinding_wheel",
+    "masterblacksmith:metal_shelf",
+    "masterblacksmith:tin_ore",
+    "masterblacksmith:deepslate_tin_ore",
+    "masterblacksmith:starfall_ore",
+    "masterblacksmith:tin_block",
+    "masterblacksmith:raw_tin_block",
+    "masterblacksmith:bronze_block",
+    "masterblacksmith:steel_block",
+    "masterblacksmith:starfall_block"
+  ]
+}

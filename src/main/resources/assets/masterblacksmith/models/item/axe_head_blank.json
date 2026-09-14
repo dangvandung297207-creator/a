@@ -1,0 +1,26 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "masterblacksmith:item/axe_head_blank"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "masterblacksmith:heat": 0.33
+      },
+      "model": "masterblacksmith:item/hot/axe_head_blank_0"
+    },
+    {
+      "predicate": {
+        "masterblacksmith:heat": 0.66
+      },
+      "model": "masterblacksmith:item/hot/axe_head_blank_1"
+    },
+    {
+      "predicate": {
+        "masterblacksmith:heat": 1.0
+      },
+      "model": "masterblacksmith:item/hot/axe_head_blank_2"
+    }
+  ]
+}

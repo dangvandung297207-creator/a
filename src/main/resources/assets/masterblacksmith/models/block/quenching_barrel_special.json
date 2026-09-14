@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "masterblacksmith:block/barrel_side",
+    "down": "masterblacksmith:block/barrel_side",
+    "up": "masterblacksmith:block/liquid_special",
+    "north": "masterblacksmith:block/barrel_side",
+    "south": "masterblacksmith:block/barrel_side",
+    "east": "masterblacksmith:block/barrel_side",
+    "west": "masterblacksmith:block/barrel_side"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "masterblacksmith:processed_steel"
+    },
+    {
+      "item": "masterblacksmith:processed_hardened_steel"
+    }
+  ],
+  "result": {
+    "item": "masterblacksmith:processed_damascus_steel",
+    "count": 2
+  }
+}

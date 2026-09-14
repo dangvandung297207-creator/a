@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "masterblacksmith:tongs"
+    },
+    "title": {
+      "translate": "adv.masterblacksmith.root"
+    },
+    "description": {
+      "translate": "adv.masterblacksmith.root.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:textures/block/deepslate_bricks.png"
+  },
+  "criteria": {
+    "got": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "masterblacksmith:tongs"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "got"
+    ]
+  ]
+}

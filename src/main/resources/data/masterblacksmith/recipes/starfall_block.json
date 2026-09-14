@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "III",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "masterblacksmith:starfall_steel_ingot"
+    }
+  },
+  "result": {
+    "item": "masterblacksmith:starfall_block",
+    "count": 1
+  }
+}

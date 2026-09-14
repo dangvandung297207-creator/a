@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "masterblacksmith:processed_copper"
+    },
+    {
+      "item": "masterblacksmith:processed_copper"
+    },
+    {
+      "item": "masterblacksmith:processed_copper"
+    },
+    {
+      "item": "masterblacksmith:processed_tin"
+    }
+  ],
+  "result": {
+    "item": "masterblacksmith:processed_bronze",
+    "count": 4
+  }
+}

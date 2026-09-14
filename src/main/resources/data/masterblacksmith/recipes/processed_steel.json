@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "masterblacksmith:processed_iron"
+    },
+    {
+      "item": "masterblacksmith:coke"
+    }
+  ],
+  "result": {
+    "item": "masterblacksmith:processed_steel",
+    "count": 1
+  }
+}

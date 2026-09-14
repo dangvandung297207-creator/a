@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DD ",
+    "DBD",
+    " B "
+  ],
+  "key": {
+    "D": {
+      "item": "masterblacksmith:damascus_steel_ingot"
+    },
+    "B": {
+      "item": "masterblacksmith:handle_bone"
+    }
+  },
+  "result": {
+    "item": "masterblacksmith:hammer_masterwork",
+    "count": 1
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "masterblacksmith:block/forge_side_iron",
+    "down": "masterblacksmith:block/forge_side_iron",
+    "up": "masterblacksmith:block/forge_top_iron",
+    "north": "masterblacksmith:block/forge_front_4",
+    "south": "masterblacksmith:block/forge_side_iron",
+    "east": "masterblacksmith:block/forge_side_iron",
+    "west": "masterblacksmith:block/forge_side_iron"
+  }
+}

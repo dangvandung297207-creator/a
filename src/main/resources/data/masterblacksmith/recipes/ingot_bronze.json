@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "masterblacksmith:bloom_bronze"
+  },
+  "result": "masterblacksmith:bronze_ingot",
+  "experience": 1.0,
+  "cookingtime": 150
+}

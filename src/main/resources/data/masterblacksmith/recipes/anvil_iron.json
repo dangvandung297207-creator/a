@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BiB",
+    "iAi",
+    "BiB"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:iron_block"
+    },
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "A": {
+      "item": "masterblacksmith:anvil_basic"
+    }
+  },
+  "result": {
+    "item": "masterblacksmith:anvil_iron",
+    "count": 1
+  }
+}

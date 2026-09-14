@@ -1,0 +1,40 @@
+{
+  "display": {
+    "icon": {
+      "item": "masterblacksmith:bloom_iron"
+    },
+    "title": {
+      "translate": "adv.masterblacksmith.first_bloom"
+    },
+    "description": {
+      "translate": "adv.masterblacksmith.first_bloom.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "masterblacksmith:bloom_iron",
+              "masterblacksmith:bloom_copper",
+              "masterblacksmith:bloom_steel",
+              "masterblacksmith:bloom_tin"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "got"
+    ]
+  ],
+  "parent": "masterblacksmith:root"
+}

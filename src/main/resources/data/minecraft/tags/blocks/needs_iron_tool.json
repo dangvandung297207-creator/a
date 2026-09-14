@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "masterblacksmith:anvil_steel",
+    "masterblacksmith:anvil_master",
+    "masterblacksmith:starfall_ore",
+    "masterblacksmith:starfall_block",
+    "masterblacksmith:forge_hearth_steel",
+    "masterblacksmith:forge_hearth_master"
+  ]
+}

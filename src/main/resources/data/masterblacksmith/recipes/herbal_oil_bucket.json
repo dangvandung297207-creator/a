@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "masterblacksmith:oil_bucket"
+    },
+    {
+      "item": "minecraft:poppy"
+    },
+    {
+      "item": "minecraft:dandelion"
+    },
+    {
+      "item": "minecraft:allium"
+    }
+  ],
+  "result": {
+    "item": "masterblacksmith:herbal_oil_bucket",
+    "count": 1
+  }
+}

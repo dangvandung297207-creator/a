@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SHS",
+    "HAH",
+    "SHS"
+  ],
+  "key": {
+    "S": {
+      "item": "masterblacksmith:starfall_shard"
+    },
+    "H": {
+      "item": "masterblacksmith:hardened_steel_ingot"
+    },
+    "A": {
+      "item": "masterblacksmith:anvil_steel"
+    }
+  },
+  "result": {
+    "item": "masterblacksmith:anvil_master",
+    "count": 1
+  }
+}

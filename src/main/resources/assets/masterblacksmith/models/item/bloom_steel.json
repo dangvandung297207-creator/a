@@ -1,0 +1,26 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "masterblacksmith:item/bloom_steel"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "masterblacksmith:heat": 0.33
+      },
+      "model": "masterblacksmith:item/hot/bloom_0"
+    },
+    {
+      "predicate": {
+        "masterblacksmith:heat": 0.66
+      },
+      "model": "masterblacksmith:item/hot/bloom_1"
+    },
+    {
+      "predicate": {
+        "masterblacksmith:heat": 1.0
+      },
+      "model": "masterblacksmith:item/hot/bloom_2"
+    }
+  ]
+}

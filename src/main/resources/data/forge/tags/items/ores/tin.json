@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "masterblacksmith:tin_ore",
+    "masterblacksmith:deepslate_tin_ore",
+    "masterblacksmith:raw_tin"
+  ]
+}

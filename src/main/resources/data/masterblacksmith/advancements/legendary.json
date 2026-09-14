@@ -1,0 +1,45 @@
+{
+  "display": {
+    "icon": {
+      "item": "masterblacksmith:blueprint_kings_edge"
+    },
+    "title": {
+      "translate": "adv.masterblacksmith.legendary"
+    },
+    "description": {
+      "translate": "adv.masterblacksmith.legendary.desc"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "masterblacksmith:forged_sword",
+              "masterblacksmith:forged_axe",
+              "masterblacksmith:forged_pickaxe",
+              "masterblacksmith:forged_spear",
+              "masterblacksmith:forged_helmet",
+              "masterblacksmith:forged_chestplate",
+              "masterblacksmith:forged_leggings",
+              "masterblacksmith:forged_boots"
+            ],
+            "nbt": "{MBSIdentity:{Tier:\"legendary\"}}"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "got"
+    ]
+  ],
+  "parent": "masterblacksmith:masterwork"
+}

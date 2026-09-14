@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "masterblacksmith:processed_steel"
+    },
+    {
+      "item": "masterblacksmith:starfall_shard"
+    },
+    {
+      "item": "masterblacksmith:starfall_shard"
+    }
+  ],
+  "result": {
+    "item": "masterblacksmith:processed_starfall_steel",
+    "count": 1
+  }
+}

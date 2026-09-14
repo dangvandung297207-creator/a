@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "HH ",
+    "HSH",
+    " S "
+  ],
+  "key": {
+    "H": {
+      "item": "masterblacksmith:hardened_steel_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "masterblacksmith:hammer_hardened",
+    "count": 1
+  }
+}

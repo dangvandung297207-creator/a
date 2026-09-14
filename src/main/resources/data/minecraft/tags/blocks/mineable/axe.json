@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "masterblacksmith:bellows",
+    "masterblacksmith:quenching_barrel",
+    "masterblacksmith:assembly_table",
+    "masterblacksmith:tool_rack"
+  ]
+}

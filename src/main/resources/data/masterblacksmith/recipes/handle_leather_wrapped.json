@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "masterblacksmith:handle_oak"
+    },
+    {
+      "item": "masterblacksmith:leather_strip"
+    },
+    {
+      "item": "masterblacksmith:leather_strip"
+    }
+  ],
+  "result": {
+    "item": "masterblacksmith:handle_leather_wrapped",
+    "count": 1
+  }
+}

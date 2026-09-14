@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "masterblacksmith:processed_iron"
+  },
+  "result": "masterblacksmith:bloom_iron",
+  "experience": 0.7,
+  "cookingtime": 200
+}

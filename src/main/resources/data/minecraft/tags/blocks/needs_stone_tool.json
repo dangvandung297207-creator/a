@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "masterblacksmith:tin_ore",
+    "masterblacksmith:deepslate_tin_ore",
+    "masterblacksmith:anvil_iron",
+    "masterblacksmith:forge_hearth_iron",
+    "masterblacksmith:grinding_wheel",
+    "masterblacksmith:metal_shelf"
+  ]
+}

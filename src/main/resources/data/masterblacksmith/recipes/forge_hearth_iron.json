@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IBI",
+    "BFB",
+    "IBI"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "B": {
+      "item": "masterblacksmith:refractory_brick_block"
+    },
+    "F": {
+      "item": "masterblacksmith:forge_hearth_primitive"
+    }
+  },
+  "result": {
+    "item": "masterblacksmith:forge_hearth_iron",
+    "count": 1
+  }
+}

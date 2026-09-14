@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "minecraft:coal_block"
+  },
+  "result": "masterblacksmith:coke",
+  "experience": 0.5,
+  "cookingtime": 300
+}

@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=north,spinning=false": {
+      "model": "masterblacksmith:block/grinding_wheel"
+    },
+    "facing=north,spinning=true": {
+      "model": "masterblacksmith:block/grinding_wheel"
+    },
+    "facing=east,spinning=false": {
+      "model": "masterblacksmith:block/grinding_wheel",
+      "y": 90
+    },
+    "facing=east,spinning=true": {
+      "model": "masterblacksmith:block/grinding_wheel",
+      "y": 90
+    },
+    "facing=south,spinning=false": {
+      "model": "masterblacksmith:block/grinding_wheel",
+      "y": 180
+    },
+    "facing=south,spinning=true": {
+      "model": "masterblacksmith:block/grinding_wheel",
+      "y": 180
+    },
+    "facing=west,spinning=false": {
+      "model": "masterblacksmith:block/grinding_wheel",
+      "y": 270
+    },
+    "facing=west,spinning=true": {
+      "model": "masterblacksmith:block/grinding_wheel",
+      "y": 270
+    }
+  }
+}

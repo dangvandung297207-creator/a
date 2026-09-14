@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "masterblacksmith:block/forge_side_primitive",
+    "down": "masterblacksmith:block/forge_side_primitive",
+    "up": "masterblacksmith:block/forge_top_primitive",
+    "north": "masterblacksmith:block/forge_front_1",
+    "south": "masterblacksmith:block/forge_side_primitive",
+    "east": "masterblacksmith:block/forge_side_primitive",
+    "west": "masterblacksmith:block/forge_side_primitive"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    "IRI",
+    " I "
+  ],
+  "key": {
+    "I": {
+      "item": "masterblacksmith:steel_ingot"
+    },
+    "R": {
+      "item": "masterblacksmith:metal_rivet"
+    }
+  },
+  "result": {
+    "item": "masterblacksmith:pommel_steel",
+    "count": 1
+  }
+}

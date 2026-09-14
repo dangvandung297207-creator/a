@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "liquid=none,level=0": {
+      "model": "masterblacksmith:block/quenching_barrel_empty"
+    },
+    "liquid=none,level=1": {
+      "model": "masterblacksmith:block/quenching_barrel_empty"
+    },
+    "liquid=none,level=2": {
+      "model": "masterblacksmith:block/quenching_barrel_empty"
+    },
+    "liquid=none,level=3": {
+      "model": "masterblacksmith:block/quenching_barrel_empty"
+    },
+    "liquid=water,level=0": {
+      "model": "masterblacksmith:block/quenching_barrel_water"
+    },
+    "liquid=water,level=1": {
+      "model": "masterblacksmith:block/quenching_barrel_water"
+    },
+    "liquid=water,level=2": {
+      "model": "masterblacksmith:block/quenching_barrel_water"
+    },
+    "liquid=water,level=3": {
+      "model": "masterblacksmith:block/quenching_barrel_water"
+    },
+    "liquid=oil,level=0": {
+      "model": "masterblacksmith:block/quenching_barrel_oil"
+    },
+    "liquid=oil,level=1": {
+      "model": "masterblacksmith:block/quenching_barrel_oil"
+    },
+    "liquid=oil,level=2": {
+      "model": "masterblacksmith:block/quenching_barrel_oil"
+    },
+    "liquid=oil,level=3": {
+      "model": "masterblacksmith:block/quenching_barrel_oil"
+    },
+    "liquid=special,level=0": {
+      "model": "masterblacksmith:block/quenching_barrel_special"
+    },
+    "liquid=special,level=1": {
+      "model": "masterblacksmith:block/quenching_barrel_special"
+    },
+    "liquid=special,level=2": {
+      "model": "masterblacksmith:block/quenching_barrel_special"
+    },
+    "liquid=special,level=3": {
+      "model": "masterblacksmith:block/quenching_barrel_special"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "masterblacksmith:bloom_damascus_steel"
+  },
+  "result": "masterblacksmith:damascus_steel_ingot",
+  "experience": 1.0,
+  "cookingtime": 150
+}

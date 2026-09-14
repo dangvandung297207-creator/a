@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "masterblacksmith:raw_tin"
+  },
+  "result": "masterblacksmith:tin_ingot",
+  "experience": 0.7,
+  "cookingtime": 200
+}

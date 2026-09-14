@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "masterblacksmith:starfall_ore"
+  },
+  "result": "masterblacksmith:starfall_shard",
+  "experience": 1.0,
+  "cookingtime": 200
+}

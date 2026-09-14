@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "masterblacksmith:processed_starfall_steel"
+  },
+  "result": "masterblacksmith:bloom_starfall_steel",
+  "experience": 0.7,
+  "cookingtime": 200
+}

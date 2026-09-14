@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SiS",
+    "iAi",
+    "SiS"
+  ],
+  "key": {
+    "S": {
+      "item": "masterblacksmith:steel_ingot"
+    },
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "A": {
+      "item": "masterblacksmith:anvil_iron"
+    }
+  },
+  "result": {
+    "item": "masterblacksmith:anvil_steel",
+    "count": 1
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "masterblacksmith:bloom_tin"
+  },
+  "result": "masterblacksmith:tin_ingot",
+  "experience": 1.0,
+  "cookingtime": 150
+}

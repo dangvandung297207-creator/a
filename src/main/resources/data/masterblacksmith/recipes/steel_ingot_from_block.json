@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "masterblacksmith:steel_block"
+    }
+  ],
+  "result": {
+    "item": "masterblacksmith:steel_ingot",
+    "count": 9
+  }
+}

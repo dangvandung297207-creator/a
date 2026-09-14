@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "masterblacksmith:processed_steel"
+    },
+    {
+      "item": "masterblacksmith:processed_steel"
+    },
+    {
+      "item": "masterblacksmith:coke"
+    }
+  ],
+  "result": {
+    "item": "masterblacksmith:processed_hardened_steel",
+    "count": 2
+  }
+}

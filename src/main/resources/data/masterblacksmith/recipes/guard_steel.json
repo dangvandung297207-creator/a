@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    " I "
+  ],
+  "key": {
+    "I": {
+      "item": "masterblacksmith:steel_ingot"
+    }
+  },
+  "result": {
+    "item": "masterblacksmith:guard_steel",
+    "count": 1
+  }
+}

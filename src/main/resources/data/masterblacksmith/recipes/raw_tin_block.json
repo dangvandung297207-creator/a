@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "III",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "masterblacksmith:raw_tin"
+    }
+  },
+  "result": {
+    "item": "masterblacksmith:raw_tin_block",
+    "count": 1
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "display": {
+    "icon": {
+      "item": "masterblacksmith:sword_blade"
+    },
+    "title": {
+      "translate": "adv.masterblacksmith.quenched"
+    },
+    "description": {
+      "translate": "adv.masterblacksmith.quenched.desc"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "got": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "masterblacksmith:sword_blade",
+              "masterblacksmith:axe_head",
+              "masterblacksmith:pickaxe_head",
+              "masterblacksmith:spear_head",
+              "masterblacksmith:armor_plate"
+            ],
+            "nbt": "{MBSForge:{Quenched:1b}}"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "got"
+    ]
+  ],
+  "parent": "masterblacksmith:first_billet"
+}
