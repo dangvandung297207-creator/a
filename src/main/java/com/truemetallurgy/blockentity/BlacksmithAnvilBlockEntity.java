@@ -222,7 +222,7 @@ public class BlacksmithAnvilBlockEntity extends BlockEntity implements MenuProvi
             return true;
         }
         if (session.hasPendingAny()) return true;
-        if (player.getCooldowns().isOnCooldown(hammerStack)) return true;
+        if (player.getCooldowns().isOnCooldown(hammerStack.getItem())) return true;
 
         String kind = ForgingLogic.bloomMaterial(work) != null
             && work.get(ModDataComponents.COMPONENT.get()) == null ? "billet" : session.targetKind();
