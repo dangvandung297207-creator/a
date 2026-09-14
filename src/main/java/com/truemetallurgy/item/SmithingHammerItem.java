@@ -18,7 +18,7 @@ public class SmithingHammerItem extends PickaxeItem {
         this.tier = tier;
     }
 
-    public HammerTier getTier() {
+    public HammerTier getHammerTier() {
         return tier;
     }
 

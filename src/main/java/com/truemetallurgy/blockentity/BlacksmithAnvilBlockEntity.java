@@ -216,7 +216,7 @@ public class BlacksmithAnvilBlockEntity extends BlockEntity implements MenuProvi
             SmithingHammerItem hammer, BlockHitResult hit) {
         ItemStack work = items.getStackInSlot(0);
         if (work.isEmpty()) {
-            SoundHelper.play(player.level(), worldPosition, hammerSound(hammer.getTier()), SoundEvents.ANVIL_LAND,
+            SoundHelper.play(player.level(), worldPosition, hammerSound(hammer.getHammerTier()), SoundEvents.ANVIL_LAND,
                 SoundSource.BLOCKS, 0.4F, 1.6F);
             HotMetal.feedback(player, "message.true_metallurgy.anvil_empty");
             return true;
@@ -235,7 +235,7 @@ public class BlacksmithAnvilBlockEntity extends BlockEntity implements MenuProvi
         ServerLevel server = (ServerLevel) player.level();
         hammerStack.hurtAndBreak(1, server, player,
             item -> player.onEquippedItemBroken(item, hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND));
-        player.getCooldowns().addCooldown(hammerStack.getItem(), hammer.getTier().strikeCooldown);
+        player.getCooldowns().addCooldown(hammerStack.getItem(), hammer.getHammerTier().strikeCooldown);
         player.swing(hand, true);
         SoundHelper.play(server, worldPosition, ModSounds.BELLOWS_WHOOSH, SoundEvents.PLAYER_ATTACK_SWEEP,
             SoundSource.PLAYERS, 0.35F, 1.6F);
@@ -244,7 +244,7 @@ public class BlacksmithAnvilBlockEntity extends BlockEntity implements MenuProvi
         float hx = (float) (loc.x - (worldPosition.getX() + 0.5));
         float hz = (float) (loc.z - (worldPosition.getZ() + 0.5));
         session.queueImpact(server.getGameTime() + 4, player.getUUID(),
-            hammer.getTier().ordinal(), hx, hz, server.getGameTime());
+            hammer.getHammerTier().ordinal(), hx, hz, server.getGameTime());
         setChanged();
         return true;
     }
