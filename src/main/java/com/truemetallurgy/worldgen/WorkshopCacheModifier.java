@@ -21,7 +21,7 @@ public class WorkshopCacheModifier extends LootModifier {
     }
 
     @Override
-    protected void doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
+    protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
         RandomSource random = context.getRandom();
         if (random.nextFloat() < 0.4F) {
             generatedLoot.add(new ItemStack(ModItems.COKE.get(), 1 + random.nextInt(3)));
@@ -35,6 +35,7 @@ public class WorkshopCacheModifier extends LootModifier {
         if (random.nextFloat() < 0.06F) {
             generatedLoot.add(new ItemStack(ModItems.JOURNAL.get(), 1));
         }
+        return generatedLoot;
     }
 
     @Override
