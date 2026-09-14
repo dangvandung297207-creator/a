@@ -7,7 +7,6 @@ import com.enderblade.registry.ModEntities;
 import com.enderblade.registry.ModItems;
 import com.enderblade.registry.ModParticles;
 import com.enderblade.registry.ModSounds;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -70,16 +69,12 @@ public class EnderEchoProjectile extends ThrowableItemProjectile {
         age++;
 
         Level level = level();
-        if (level.isClientSide) {
-            level.addParticle(ModParticles.VOID_SPARK.get(), getX(), getY(), getZ(), 0, 0, 0);
-            if (age % 2 == 0) {
-                level.addParticle(ParticleTypes.REVERSE_PORTAL, getX(), getY(), getZ(),
-                        (random.nextDouble() - 0.5) * 0.08,
-                        (random.nextDouble() - 0.5) * 0.08,
-                        (random.nextDouble() - 0.5) * 0.08);
-            }
-        } else if (level instanceof ServerLevel sl && age % 2 == 0) {
-            sl.sendParticles(ModParticles.RIFT_DUST.get(), getX(), getY(), getZ(), 1, 0.05, 0.05, 0.05, 0);
+        // Sparse supporting sparks only — mesh renderer carries the look
+        if (level.isClientSide && age % 3 == 0) {
+            level.addParticle(ModParticles.VOID_SPARK.get(), getX(), getY(), getZ(),
+                    (random.nextDouble() - 0.5) * 0.02, 0.01, (random.nextDouble() - 0.5) * 0.02);
+        } else if (level instanceof ServerLevel sl && age % 4 == 0) {
+            sl.sendParticles(ModParticles.RIFT_DUST.get(), getX(), getY(), getZ(), 1, 0.04, 0.04, 0.04, 0);
         }
 
         if (!level.isClientSide && age >= lifetime) {
@@ -93,7 +88,8 @@ public class EnderEchoProjectile extends ThrowableItemProjectile {
             if (owner != null) {
                 EnderBladeItem.onEchoExpired(sl, owner.getUUID(), getUUID());
             }
-            sl.sendParticles(ParticleTypes.PORTAL, getX(), getY(), getZ(), 16, 0.25, 0.25, 0.25, 0.08);
+            AbilityHelper.broadcastVfx(sl, position(), "spatial_burst", 0.6f);
+            sl.sendParticles(ModParticles.VOID_SPARK.get(), getX(), getY(), getZ(), 6, 0.15, 0.15, 0.15, 0.03);
             sl.playSound(null, getX(), getY(), getZ(), ModSounds.ECHO_LAUNCH.get(), SoundSource.NEUTRAL, 0.4f, 1.6f);
         }
         discard();
@@ -118,11 +114,13 @@ public class EnderEchoProjectile extends ThrowableItemProjectile {
             }
 
             if (level() instanceof ServerLevel sl) {
-                AbilityHelper.broadcastVfx(sl, living.position().add(0, living.getBbHeight() * 0.5, 0),
-                        "spatial_cut", 0.7f);
+                var hitPos = living.position().add(0, living.getBbHeight() * 0.5, 0);
+                AbilityHelper.broadcastVfx(sl, hitPos, "echo_pass", 0.9f);
+                AbilityHelper.broadcastVfx(sl, hitPos, "spatial_cut", 0.65f);
+                AbilityHelper.broadcastVfx(sl, hitPos, "mark_pulse", 0.7f);
                 sl.sendParticles(ModParticles.VOID_SPARK.get(),
                         living.getX(), living.getY() + living.getBbHeight() * 0.5, living.getZ(),
-                        10, 0.2, 0.3, 0.2, 0.04);
+                        4, 0.12, 0.2, 0.12, 0.02);
                 sl.playSound(null, living.getX(), living.getY(), living.getZ(),
                         ModSounds.SLASH.get(), SoundSource.NEUTRAL, 0.5f, 1.4f);
             }

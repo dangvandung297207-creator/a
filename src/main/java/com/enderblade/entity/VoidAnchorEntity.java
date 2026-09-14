@@ -3,7 +3,6 @@ package com.enderblade.entity;
 import com.enderblade.ability.AbilityHelper;
 import com.enderblade.registry.ModEntities;
 import com.enderblade.registry.ModParticles;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -54,18 +53,13 @@ public class VoidAnchorEntity extends Entity {
         // Gentle hover bob
         setPos(getX(), getY() + Math.sin(age * 0.08) * 0.005, getZ());
 
-        if (level().isClientSide) {
-            if (age % 3 == 0) {
-                level().addParticle(ModParticles.VOID_SPARK.get(),
-                        getX() + (random.nextDouble() - 0.5) * 0.4,
-                        getY() + 0.4 + random.nextDouble() * 0.3,
-                        getZ() + (random.nextDouble() - 0.5) * 0.4,
-                        0, 0.02, 0);
-            }
-            if (age % 5 == 0) {
-                level().addParticle(ParticleTypes.REVERSE_PORTAL,
-                        getX(), getY() + 0.5, getZ(), 0, 0.05, 0);
-            }
+        if (level().isClientSide && age % 6 == 0) {
+            // Sparse custom spark only — renderer owns the look
+            level().addParticle(ModParticles.VOID_SPARK.get(),
+                    getX() + (random.nextDouble() - 0.5) * 0.3,
+                    getY() + 0.4 + random.nextDouble() * 0.2,
+                    getZ() + (random.nextDouble() - 0.5) * 0.3,
+                    0, 0.015, 0);
         }
 
         if (!level().isClientSide && age >= MAX_LIFE) {

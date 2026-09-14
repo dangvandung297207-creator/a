@@ -7,7 +7,6 @@ import com.enderblade.network.SpawnVfxPayload;
 import com.enderblade.registry.ModParticles;
 import com.enderblade.registry.ModSounds;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -59,14 +58,14 @@ public final class AbilityHelper {
     }
 
     public static void spatialBurst(ServerLevel level, Vec3 pos) {
-        level.sendParticles(ModParticles.RIFT_DUST.get(), pos.x, pos.y + 0.5, pos.z, 24, 0.4, 0.6, 0.4, 0.02);
-        level.sendParticles(ModParticles.VOID_SPARK.get(), pos.x, pos.y + 0.4, pos.z, 12, 0.3, 0.4, 0.3, 0.05);
-        level.sendParticles(ParticleTypes.REVERSE_PORTAL, pos.x, pos.y + 0.5, pos.z, 18, 0.35, 0.5, 0.35, 0.08);
+        // Supporting particles only — main look is mesh VFX
+        level.sendParticles(ModParticles.RIFT_DUST.get(), pos.x, pos.y + 0.5, pos.z, 10, 0.3, 0.4, 0.3, 0.015);
+        level.sendParticles(ModParticles.VOID_SPARK.get(), pos.x, pos.y + 0.4, pos.z, 6, 0.2, 0.3, 0.2, 0.03);
         broadcastVfx(level, pos, "spatial_burst", 1.0f);
     }
 
     public static void afterimageBurst(ServerLevel level, Vec3 pos) {
-        level.sendParticles(ModParticles.AFTERIMAGE_MIST.get(), pos.x, pos.y + 1.0, pos.z, 20, 0.3, 0.7, 0.3, 0.01);
+        level.sendParticles(ModParticles.AFTERIMAGE_MIST.get(), pos.x, pos.y + 1.0, pos.z, 8, 0.25, 0.5, 0.25, 0.01);
         broadcastVfx(level, pos, "afterimage", 1.0f);
     }
 
@@ -181,10 +180,9 @@ public final class AbilityHelper {
             v.hurt(src, RIFT_COLLAPSE_DAMAGE * 0.6f);
         }
 
-        // Particles
-        level.sendParticles(ParticleTypes.REVERSE_PORTAL, c.x, c.y, c.z, 60, 0.8, 0.8, 0.8, 0.15);
-        level.sendParticles(ModParticles.VOID_SPARK.get(), c.x, c.y, c.z, 40, 0.6, 0.6, 0.6, 0.08);
-        level.sendParticles(ModParticles.RIFT_DUST.get(), c.x, c.y, c.z, 30, 0.5, 0.5, 0.5, 0.04);
+        // Supporting particles only — collapse look is geometry-driven
+        level.sendParticles(ModParticles.VOID_SPARK.get(), c.x, c.y, c.z, 16, 0.4, 0.4, 0.4, 0.05);
+        level.sendParticles(ModParticles.RIFT_DUST.get(), c.x, c.y, c.z, 12, 0.35, 0.35, 0.35, 0.03);
 
         // Slight displace of center
         findSafeNearby(level, center, center.position(), 1.5, level.getRandom(), 8)
@@ -198,8 +196,10 @@ public final class AbilityHelper {
 
     public static void teleportPlayerNoDamage(ServerPlayer player, Vec3 dest) {
         Vec3 from = player.position();
+        // Departure: vertical rift + afterimages (not Enderman particles)
         afterimageBurst(player.serverLevel(), from.add(0, 1, 0));
-        spatialBurst(player.serverLevel(), from.add(0, 1, 0));
+        broadcastVfx(player.serverLevel(), from.add(0, 1, 0), "teleport_depart", 1.0f);
+        levelSoftSparks(player.serverLevel(), from.add(0, 1, 0));
 
         player.teleportTo(dest.x, dest.y, dest.z);
         player.setDeltaMovement(Vec3.ZERO);
@@ -207,11 +207,18 @@ public final class AbilityHelper {
         player.fallDistance = 0;
         player.resetFallDistance();
 
-        spatialBurst(player.serverLevel(), dest.add(0, 1, 0));
+        // Arrival: rift open + short shockwave ring
+        afterimageBurst(player.serverLevel(), dest.add(0, 1, 0));
+        broadcastVfx(player.serverLevel(), dest.add(0, 1, 0), "teleport_arrival", 1.25f);
+        levelSoftSparks(player.serverLevel(), dest.add(0, 1, 0));
         player.serverLevel().playSound(null, dest.x, dest.y, dest.z,
                 ModSounds.TELEPORT.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
         broadcastAnim(player, "teleport");
-        broadcastVfx(player.serverLevel(), dest, "teleport_arrival", 1.2f);
+    }
+
+    private static void levelSoftSparks(ServerLevel level, Vec3 pos) {
+        level.sendParticles(ModParticles.VOID_SPARK.get(), pos.x, pos.y, pos.z, 5, 0.15, 0.25, 0.15, 0.02);
+        level.sendParticles(ModParticles.RIFT_DUST.get(), pos.x, pos.y, pos.z, 4, 0.12, 0.2, 0.12, 0.01);
     }
 
     /** Find a safe spot behind a target for Paradox Step. */

@@ -15,7 +15,8 @@ import net.minecraft.util.Mth;
 import org.joml.Matrix4f;
 
 /**
- * Dimensional cut — thin purple-black rift plane with fractured emissive edges.
+ * Literal cut in space — black/purple interior, sharp fractured edges,
+ * glowing violet rim, animated distortion. Open → strike → fracture → collapse.
  */
 public class VoidSlashRenderer extends EntityRenderer<VoidSlashEntity> {
 
@@ -30,9 +31,9 @@ public class VoidSlashRenderer extends EntityRenderer<VoidSlashEntity> {
     public void render(VoidSlashEntity entity, float yaw, float pt, PoseStack pose,
                        MultiBufferSource buffers, int light) {
         float progress = entity.getLifeProgress();
-        // Open fast, hold, snap shut
-        float open = progress < 0.2f ? progress / 0.2f
-                : progress > 0.7f ? 1f - (progress - 0.7f) / 0.3f
+        // Open extremely fast, brief hold, snap shut
+        float open = progress < 0.15f ? progress / 0.15f
+                : progress > 0.55f ? Math.max(0f, 1f - (progress - 0.55f) / 0.45f)
                 : 1f;
         open = Mth.clamp(open, 0f, 1f);
         if (open < 0.01f) return;
@@ -40,26 +41,49 @@ public class VoidSlashRenderer extends EntityRenderer<VoidSlashEntity> {
         pose.pushPose();
         pose.mulPose(Axis.YP.rotationDegrees(-entity.getSlashYaw()));
 
-        float w = 2.2f * open;
-        float h = 2.0f * open;
-        float depth = 0.08f;
+        // Distortion jitter
+        float jitter = Mth.sin((entity.getAge() + pt) * 2.8f) * 0.03f * open;
+        pose.translate(jitter, 0, 0);
 
-        // Dark void interior
-        renderPlane(pose, buffers, w, h, depth, 0xEE05020A, false);
-        // Emissive edge frame
+        float w = 2.4f * open;
+        float h = 1.7f * open;
+        float depth = 0.07f;
+
+        // Black/purple interior
+        renderPlane(pose, buffers, w, h, depth, 0xF005020A, false);
+        // Slightly smaller hot purple sheet
+        renderPlane(pose, buffers, w * 0.92f, h * 0.88f, depth + 0.01f, 0x551A0840, true);
+
+        // Glowing violet edge frame
         renderFrame(pose, buffers, w, h, 0xFFC070FF);
+        // Hot outer rim
+        renderFrame(pose, buffers, w * 1.04f, h * 1.04f, 0xAAFF6AE0);
 
-        // Fractured edge shards
+        // Fractured edge shards + trailing fragments
         VertexConsumer vc = buffers.getBuffer(RenderType.eyes(TEX));
         Matrix4f m = pose.last().pose();
-        for (int i = 0; i < 6; i++) {
-            float ox = (i / 5f - 0.5f) * w * 1.1f;
-            float oy = ((i % 3) - 1) * h * 0.35f;
-            float s = 0.12f + (i % 2) * 0.08f;
-            v(vc, m, ox - s, oy, 0.05f, 0xAAB45CFF);
-            v(vc, m, ox + s, oy, 0.05f, 0xAAB45CFF);
-            v(vc, m, ox, oy + s * 1.4f, 0.05f, 0xAAB45CFF);
-            v(vc, m, ox, oy - s * 0.5f, 0.05f, 0xAAB45CFF);
+        float age = entity.getAge() + pt;
+        for (int i = 0; i < 8; i++) {
+            float ox = (i / 7f - 0.5f) * w * 1.15f;
+            float oy = Mth.sin(i * 1.7f + age) * h * 0.4f;
+            float s = 0.10f + (i % 3) * 0.05f;
+            int col = (i % 2 == 0) ? 0xC0B45CFF : 0xA0FF6AE0;
+            v(vc, m, ox - s, oy, 0.06f, col);
+            v(vc, m, ox + s, oy, 0.06f, col);
+            v(vc, m, ox + s * 0.3f, oy + s * 1.3f, 0.06f, col);
+            v(vc, m, ox - s * 0.3f, oy - s * 0.6f, 0.06f, col);
+        }
+
+        // Thin trailing fragments drifting forward
+        for (int i = 0; i < 5; i++) {
+            float fx = (i - 2) * 0.25f * open;
+            float fy = Mth.sin(age * 3f + i) * 0.3f;
+            float fz = 0.15f + i * 0.04f;
+            float s = 0.06f;
+            v(vc, m, fx - s, fy, fz, 0x90A050FF);
+            v(vc, m, fx + s, fy, fz, 0x90A050FF);
+            v(vc, m, fx + s, fy + s, fz, 0x90A050FF);
+            v(vc, m, fx - s, fy + s, fz, 0x90A050FF);
         }
 
         pose.popPose();
@@ -69,12 +93,10 @@ public class VoidSlashRenderer extends EntityRenderer<VoidSlashEntity> {
     private void renderPlane(PoseStack pose, MultiBufferSource buf, float w, float h, float d, int argb, boolean eyes) {
         VertexConsumer vc = buf.getBuffer(eyes ? RenderType.eyes(TEX) : RenderType.entityTranslucent(TEX));
         Matrix4f m = pose.last().pose();
-        // front
         v(vc, m, -w / 2, -h / 2, d, argb);
         v(vc, m, w / 2, -h / 2, d, argb);
         v(vc, m, w / 2, h / 2, d, argb);
         v(vc, m, -w / 2, h / 2, d, argb);
-        // back
         v(vc, m, -w / 2, h / 2, -d, argb);
         v(vc, m, w / 2, h / 2, -d, argb);
         v(vc, m, w / 2, -h / 2, -d, argb);
@@ -84,23 +106,23 @@ public class VoidSlashRenderer extends EntityRenderer<VoidSlashEntity> {
     private void renderFrame(PoseStack pose, MultiBufferSource buf, float w, float h, int argb) {
         VertexConsumer vc = buf.getBuffer(RenderType.eyes(TEX));
         Matrix4f m = pose.last().pose();
-        float t = 0.06f;
-        // top
+        float t = 0.05f;
+        // top / bottom / left / right
         v(vc, m, -w / 2, h / 2 - t, 0.09f, argb);
         v(vc, m, w / 2, h / 2 - t, 0.09f, argb);
         v(vc, m, w / 2, h / 2 + t, 0.09f, argb);
         v(vc, m, -w / 2, h / 2 + t, 0.09f, argb);
-        // bottom
+
         v(vc, m, -w / 2, -h / 2 - t, 0.09f, argb);
         v(vc, m, w / 2, -h / 2 - t, 0.09f, argb);
         v(vc, m, w / 2, -h / 2 + t, 0.09f, argb);
         v(vc, m, -w / 2, -h / 2 + t, 0.09f, argb);
-        // left
+
         v(vc, m, -w / 2 - t, -h / 2, 0.09f, argb);
         v(vc, m, -w / 2 + t, -h / 2, 0.09f, argb);
         v(vc, m, -w / 2 + t, h / 2, 0.09f, argb);
         v(vc, m, -w / 2 - t, h / 2, 0.09f, argb);
-        // right
+
         v(vc, m, w / 2 - t, -h / 2, 0.09f, argb);
         v(vc, m, w / 2 + t, -h / 2, 0.09f, argb);
         v(vc, m, w / 2 + t, h / 2, 0.09f, argb);

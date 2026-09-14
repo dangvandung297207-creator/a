@@ -5,7 +5,6 @@ import com.enderblade.effect.VoidMarkEffect;
 import com.enderblade.registry.ModEntities;
 import com.enderblade.registry.ModParticles;
 import com.enderblade.registry.ModSounds;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -93,22 +92,15 @@ public class EndDimensionZoneEntity extends Entity {
     }
 
     private void clientFx(int age) {
-        double a = age * 0.15;
-        for (int i = 0; i < 3; i++) {
-            double ang = a + i * 2.1;
-            double r = RADIUS * 0.7;
+        // Sparse supporting sparks only — mesh renderer owns the domain look
+        if (age % 5 == 0) {
+            double ang = age * 0.2;
+            double r = RADIUS * 0.65;
             level().addParticle(ModParticles.VOID_SPARK.get(),
                     getX() + Math.cos(ang) * r,
-                    getY() + 0.5 + Math.sin(age * 0.1 + i) * 0.3,
+                    getY() + 0.6 + Math.sin(age * 0.08) * 0.25,
                     getZ() + Math.sin(ang) * r,
-                    0, 0.02, 0);
-        }
-        if (age % 4 == 0) {
-            level().addParticle(ParticleTypes.REVERSE_PORTAL,
-                    getX() + (random.nextDouble() - 0.5) * RADIUS,
-                    getY() + random.nextDouble() * 2,
-                    getZ() + (random.nextDouble() - 0.5) * RADIUS,
-                    0, 0.05, 0);
+                    0, 0.015, 0);
         }
     }
 
@@ -137,9 +129,9 @@ public class EndDimensionZoneEntity extends Entity {
             AbilityHelper.spatialBurst(sl, t.position().add(0, 1, 0));
         }
 
-        sl.sendParticles(ParticleTypes.REVERSE_PORTAL, c.x, c.y, c.z, 120, 2.0, 1.5, 2.0, 0.2);
-        sl.sendParticles(ModParticles.RIFT_DUST.get(), c.x, c.y, c.z, 80, 1.5, 1.0, 1.5, 0.05);
-        sl.sendParticles(ModParticles.VOID_SPARK.get(), c.x, c.y, c.z, 60, 1.2, 1.0, 1.2, 0.1);
+        // Geometry collapse VFX already broadcast — light particle support only
+        sl.sendParticles(ModParticles.RIFT_DUST.get(), c.x, c.y, c.z, 24, 1.0, 0.7, 1.0, 0.04);
+        sl.sendParticles(ModParticles.VOID_SPARK.get(), c.x, c.y, c.z, 18, 0.8, 0.6, 0.8, 0.06);
     }
 
     private LivingEntity resolveOwner(ServerLevel sl) {

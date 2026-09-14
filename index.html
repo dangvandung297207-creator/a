@@ -30,7 +30,13 @@
 
     <!-- Left: animations -->
     <aside class="panel panel-left">
-      <h2>Animations</h2>
+      <h2>View</h2>
+      <div class="btn-grid cols-2">
+        <button id="btn-combat" class="toggle active">Combat View</button>
+        <button id="btn-inspect" class="toggle">Inspect</button>
+      </div>
+
+      <h2 class="mt">Animations</h2>
       <div class="btn-grid" id="anim-buttons">
         <button data-anim="idle" class="active">Idle</button>
         <button data-anim="equip">Equip</button>
@@ -38,6 +44,7 @@
         <button data-anim="attack1">Attack 1</button>
         <button data-anim="attack2">Attack 2</button>
         <button data-anim="attack3">Attack 3</button>
+        <button data-anim="heavy">Heavy Attack</button>
         <button data-anim="voidSlash">Void Slash</button>
         <button data-anim="enderEcho">Ender Echo</button>
         <button data-anim="teleport">Teleport</button>
@@ -54,6 +61,7 @@
         <button id="btn-vfx" class="toggle active">VFX On</button>
         <button id="btn-wire" class="toggle">Wireframe</button>
         <button id="btn-model" class="toggle">Model Only</button>
+        <button id="btn-reset" class="toggle wide">Reset Animation</button>
       </div>
 
       <div class="slider-row">
@@ -70,8 +78,9 @@
     <aside class="panel panel-right">
       <h2>Weapon Identity</h2>
       <p class="lore">
-        Forged from <b>Netherite</b>, quenched in <b>Dragon Breath</b>,
-        sealed with an <b>Eye of Ender</b>. The blade does not merely cut flesh —
+        An ancient <b>Netherite</b> blade containing a fractured piece of the
+        <b>End dimension</b>. Quenched in <b>Dragon Breath</b>, sealed with an
+        <b>Eye of Ender</b>. The blade does not merely cut flesh —
         it severs the continuity of space itself.
       </p>
 
@@ -86,6 +95,8 @@
         <li data-part="Ender_Core"><i></i>Ender Core</li>
         <li data-part="Runes"><i></i>Runes</li>
         <li data-part="EmissiveParts"><i></i>Emissive Parts</li>
+        <li data-part="Dimensional_Fragments"><i></i>Dim. Fragments</li>
+        <li data-part="VFXAttachments"><i></i>VFX Attachments</li>
       </ul>
 
       <h2 class="mt">Abilities</h2>

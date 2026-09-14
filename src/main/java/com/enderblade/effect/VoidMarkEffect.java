@@ -43,6 +43,13 @@ public class VoidMarkEffect extends MobEffect {
         target.addEffect(new MobEffectInstance(ModEffects.VOID_MARK, DEFAULT_DURATION, newAmp, false, true, true));
         target.level().playSound(null, target.getX(), target.getY(), target.getZ(),
                 ModSounds.MARK.get(), SoundSource.PLAYERS, 0.6f, 1.2f + newAmp * 0.15f);
+        if (target.level() instanceof ServerLevel sl) {
+            // Stack intensity: 1 subtle · 2 stronger · approaching collapse
+            float scale = 0.55f + newAmp * 0.35f;
+            AbilityHelper.broadcastVfx(sl,
+                    target.position().add(0, target.getBbHeight() * 0.6, 0),
+                    "mark_pulse", scale);
+        }
         return false;
     }
 

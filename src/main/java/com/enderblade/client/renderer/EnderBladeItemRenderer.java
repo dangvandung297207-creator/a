@@ -50,6 +50,12 @@ public class EnderBladeItemRenderer extends BlockEntityWithoutLevelRenderer {
                 : 0f;
         model.setupAnim(age);
 
+        AnimationHandler.AnimState boostAnim = Minecraft.getInstance().player != null
+                ? AnimationHandler.get(Minecraft.getInstance().player) : null;
+        if (boostAnim != null) {
+            model.setCombatBoost(Math.max(0f, boostAnim.crackBoost - 1f));
+        }
+
         switch (ctx) {
             case GUI -> {
                 pose.translate(0.5, 0.15, 0);
