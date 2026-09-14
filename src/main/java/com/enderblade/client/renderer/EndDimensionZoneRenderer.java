@@ -52,7 +52,7 @@ public class EndDimensionZoneRenderer extends EntityRenderer<EndDimensionZoneEnt
         renderRing(pose, buffers, radius * 0.4f, 0.06f, 0x88C070FF);
         // Ground crack spokes
         for (int i = 0; i < 6; i++) {
-            float a = i * ((float) Math.PI / 3f) + t * 0.01f;
+            float a = i * (Mth.PI / 3f) + t * 0.01f;
             renderSpoke(pose, buffers, radius * 0.85f, a, 0x90A050FF);
         }
         pose.popPose();
@@ -60,7 +60,7 @@ public class EndDimensionZoneRenderer extends EntityRenderer<EndDimensionZoneEnt
         // Floating End fragments (geometry, not particles)
         int frags = 10;
         for (int i = 0; i < frags; i++) {
-            float ang = t * 0.03f + i * ((float) Math.PI * 2f / frags);
+            float ang = t * 0.03f + i * (Mth.TWO_PI / frags);
             float rad = radius * (0.35f + (i % 3) * 0.18f);
             if (collapsing) rad *= expand;
             float x = Mth.cos(ang) * rad;
@@ -77,7 +77,7 @@ public class EndDimensionZoneRenderer extends EntityRenderer<EndDimensionZoneEnt
 
         // Orbiting Eye symbols
         for (int i = 0; i < 4; i++) {
-            float ang = t * 0.035f + i * ((float) Math.PI * 0.5);
+            float ang = t * 0.035f + i * (Mth.PI * 0.5f);
             float x = Mth.cos(ang) * radius * 0.55f;
             float z = Mth.sin(ang) * radius * 0.55f;
             pose.pushPose();
@@ -89,7 +89,7 @@ public class EndDimensionZoneRenderer extends EntityRenderer<EndDimensionZoneEnt
 
         // Rising energy columns (restrained)
         for (int i = 0; i < 4; i++) {
-            float ang = i * ((float) Math.PI * 0.5) + 0.4f;
+            float ang = i * (Mth.PI * 0.5f) + 0.4f;
             float x = Mth.cos(ang) * radius * 0.85f;
             float z = Mth.sin(ang) * radius * 0.85f;
             pose.pushPose();
