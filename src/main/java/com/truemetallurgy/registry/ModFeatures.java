@@ -15,5 +15,5 @@ public final class ModFeatures {
         DeferredRegister.create(Registries.FEATURE, TrueMetallurgy.MOD_ID);
 
     public static final DeferredHolder<Feature<?>, AbandonedForgeFeature> ABANDONED_FORGE =
-        FEATURES.register("abandoned_forge", AbandonedForgeFeature::new);
+        FEATURES.register("abandoned_forge", () -> new AbandonedForgeFeature());
 }
