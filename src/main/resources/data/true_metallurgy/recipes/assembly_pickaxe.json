@@ -1,0 +1,10 @@
+{
+  "type": "true_metallurgy:assembly",
+  "category": "pickaxe",
+  "blade": {
+    "item": "true_metallurgy:pickaxe_head"
+  },
+  "slot_b": {
+    "tag": "true_metallurgy:handles"
+  }
+}

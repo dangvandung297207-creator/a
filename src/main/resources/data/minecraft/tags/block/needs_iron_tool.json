@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "true_metallurgy:steel_forge",
+    "true_metallurgy:master_forge",
+    "true_metallurgy:steel_anvil",
+    "true_metallurgy:master_anvil",
+    "true_metallurgy:steel_block"
+  ]
+}

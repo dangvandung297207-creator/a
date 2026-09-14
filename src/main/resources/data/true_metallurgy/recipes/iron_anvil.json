@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "III",
+    "IAI",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "A": {
+      "item": "true_metallurgy:basic_anvil"
+    }
+  },
+  "result": {
+    "id": "true_metallurgy:iron_anvil",
+    "count": 1
+  }
+}

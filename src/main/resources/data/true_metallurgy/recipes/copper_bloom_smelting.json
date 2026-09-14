@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "true_metallurgy:crushed_copper_ore"
+  },
+  "result": {
+    "id": "true_metallurgy:copper_bloom"
+  }
+}

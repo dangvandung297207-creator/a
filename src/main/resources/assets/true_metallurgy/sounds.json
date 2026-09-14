@@ -1,0 +1,218 @@
+{
+  "forge_crackle": {
+    "subtitle": "subtitle.true_metallurgy.forge_crackle",
+    "sounds": [
+      {
+        "name": "true_metallurgy:forge_crackle1"
+      },
+      {
+        "name": "true_metallurgy:forge_crackle2",
+        "pitch": 0.95
+      }
+    ]
+  },
+  "forge_roar": {
+    "subtitle": "subtitle.true_metallurgy.forge_crackle",
+    "sounds": [
+      {
+        "name": "true_metallurgy:forge_roar1"
+      },
+      {
+        "name": "true_metallurgy:forge_roar2",
+        "pitch": 0.95
+      }
+    ]
+  },
+  "bellows_whoosh": {
+    "subtitle": "subtitle.true_metallurgy.bellows_whoosh",
+    "sounds": [
+      {
+        "name": "true_metallurgy:bellows_whoosh1"
+      },
+      {
+        "name": "true_metallurgy:bellows_whoosh2",
+        "pitch": 0.95
+      }
+    ]
+  },
+  "bellows_creak": {
+    "subtitle": "subtitle.true_metallurgy.bellows_whoosh",
+    "sounds": [
+      {
+        "name": "true_metallurgy:bellows_creak1"
+      },
+      {
+        "name": "true_metallurgy:bellows_creak2",
+        "pitch": 0.95
+      }
+    ]
+  },
+  "hammer_iron": {
+    "subtitle": "subtitle.true_metallurgy.hammer",
+    "sounds": [
+      {
+        "name": "true_metallurgy:hammer_iron1"
+      },
+      {
+        "name": "true_metallurgy:hammer_iron2",
+        "pitch": 0.95
+      }
+    ]
+  },
+  "hammer_steel": {
+    "subtitle": "subtitle.true_metallurgy.hammer",
+    "sounds": [
+      {
+        "name": "true_metallurgy:hammer_steel1"
+      },
+      {
+        "name": "true_metallurgy:hammer_steel2",
+        "pitch": 0.95
+      }
+    ]
+  },
+  "hammer_master": {
+    "subtitle": "subtitle.true_metallurgy.hammer",
+    "sounds": [
+      {
+        "name": "true_metallurgy:hammer_master1"
+      },
+      {
+        "name": "true_metallurgy:hammer_master2",
+        "pitch": 0.95
+      }
+    ]
+  },
+  "strike_perfect": {
+    "subtitle": "subtitle.true_metallurgy.hammer",
+    "sounds": [
+      {
+        "name": "true_metallurgy:strike_perfect1"
+      },
+      {
+        "name": "true_metallurgy:strike_perfect2",
+        "pitch": 0.95
+      }
+    ]
+  },
+  "strike_bad": {
+    "subtitle": "subtitle.true_metallurgy.hammer",
+    "sounds": [
+      {
+        "name": "true_metallurgy:strike_bad1"
+      },
+      {
+        "name": "true_metallurgy:strike_bad2",
+        "pitch": 0.95
+      }
+    ]
+  },
+  "quench_water": {
+    "subtitle": "subtitle.true_metallurgy.quench",
+    "sounds": [
+      {
+        "name": "true_metallurgy:quench_water1"
+      },
+      {
+        "name": "true_metallurgy:quench_water2",
+        "pitch": 0.95
+      }
+    ]
+  },
+  "quench_oil": {
+    "subtitle": "subtitle.true_metallurgy.quench",
+    "sounds": [
+      {
+        "name": "true_metallurgy:quench_oil1"
+      },
+      {
+        "name": "true_metallurgy:quench_oil2",
+        "pitch": 0.95
+      }
+    ]
+  },
+  "grind_loop": {
+    "subtitle": "subtitle.true_metallurgy.grind",
+    "sounds": [
+      {
+        "name": "true_metallurgy:grind_loop1"
+      },
+      {
+        "name": "true_metallurgy:grind_loop2",
+        "pitch": 0.95
+      }
+    ]
+  },
+  "grind_scrape": {
+    "subtitle": "subtitle.true_metallurgy.grind",
+    "sounds": [
+      {
+        "name": "true_metallurgy:grind_scrape1"
+      },
+      {
+        "name": "true_metallurgy:grind_scrape2",
+        "pitch": 0.95
+      }
+    ]
+  },
+  "assembly_wood": {
+    "subtitle": "subtitle.true_metallurgy.assembly",
+    "sounds": [
+      {
+        "name": "true_metallurgy:assembly_wood1"
+      },
+      {
+        "name": "true_metallurgy:assembly_wood2",
+        "pitch": 0.95
+      }
+    ]
+  },
+  "assembly_metal": {
+    "subtitle": "subtitle.true_metallurgy.assembly",
+    "sounds": [
+      {
+        "name": "true_metallurgy:assembly_metal1"
+      },
+      {
+        "name": "true_metallurgy:assembly_metal2",
+        "pitch": 0.95
+      }
+    ]
+  },
+  "masterwork_chime": {
+    "subtitle": "subtitle.true_metallurgy.chime",
+    "sounds": [
+      {
+        "name": "true_metallurgy:masterwork_chime1"
+      },
+      {
+        "name": "true_metallurgy:masterwork_chime2",
+        "pitch": 0.95
+      }
+    ]
+  },
+  "journal_page": {
+    "subtitle": "subtitle.true_metallurgy.assembly",
+    "sounds": [
+      {
+        "name": "true_metallurgy:journal_page1"
+      },
+      {
+        "name": "true_metallurgy:journal_page2",
+        "pitch": 0.95
+      }
+    ]
+  },
+  "tongs_clink": {
+    "subtitle": "subtitle.true_metallurgy.assembly",
+    "sounds": [
+      {
+        "name": "true_metallurgy:tongs_clink1"
+      },
+      {
+        "name": "true_metallurgy:tongs_clink2",
+        "pitch": 0.95
+      }
+    ]
+  }
+}

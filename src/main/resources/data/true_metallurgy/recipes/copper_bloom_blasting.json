@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "true_metallurgy:crushed_copper_ore"
+  },
+  "result": {
+    "id": "true_metallurgy:copper_bloom"
+  }
+}

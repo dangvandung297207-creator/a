@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "true_metallurgy:bellows",
+    "true_metallurgy:quenching_barrel",
+    "true_metallurgy:assembly_table",
+    "true_metallurgy:tool_rack"
+  ]
+}

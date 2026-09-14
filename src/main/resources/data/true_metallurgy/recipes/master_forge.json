@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "HOH",
+    "OFO",
+    "HOH"
+  ],
+  "key": {
+    "H": {
+      "item": "true_metallurgy:hardened_billet"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    },
+    "F": {
+      "item": "true_metallurgy:steel_forge"
+    }
+  },
+  "result": {
+    "id": "true_metallurgy:master_forge",
+    "count": 1
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " B ",
+    "BBB",
+    " B "
+  ],
+  "key": {
+    "B": {
+      "item": "true_metallurgy:steel_billet"
+    }
+  },
+  "result": {
+    "id": "true_metallurgy:steel_guard",
+    "count": 1
+  }
+}

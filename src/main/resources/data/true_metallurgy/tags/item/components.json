@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "true_metallurgy:sword_blade",
+    "true_metallurgy:axe_head",
+    "true_metallurgy:pickaxe_head",
+    "true_metallurgy:spear_head"
+  ]
+}

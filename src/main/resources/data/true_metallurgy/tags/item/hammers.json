@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "true_metallurgy:primitive_hammer",
+    "true_metallurgy:copper_hammer",
+    "true_metallurgy:iron_hammer",
+    "true_metallurgy:steel_hammer",
+    "true_metallurgy:hardened_hammer",
+    "true_metallurgy:masterwork_hammer"
+  ]
+}

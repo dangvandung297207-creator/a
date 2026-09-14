@@ -1,0 +1,35 @@
+{
+  "parent": "true_metallurgy:root",
+  "display": {
+    "icon": {
+      "id": "true_metallurgy:iron_billet"
+    },
+    "title": {
+      "translate": "advancement.true_metallurgy.first_billet"
+    },
+    "description": {
+      "translate": "advancement.true_metallurgy.first_billet.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "billet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "true_metallurgy:copper_billet",
+              "true_metallurgy:iron_billet",
+              "true_metallurgy:steel_billet",
+              "true_metallurgy:hardened_billet"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

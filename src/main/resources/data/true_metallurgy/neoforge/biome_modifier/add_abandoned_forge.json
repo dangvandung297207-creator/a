@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": "true_metallurgy:abandoned_forge",
+  "step": "surface_structures"
+}

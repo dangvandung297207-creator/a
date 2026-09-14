@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " B ",
+    "B B"
+  ],
+  "key": {
+    "B": {
+      "item": "true_metallurgy:steel_billet"
+    }
+  },
+  "result": {
+    "id": "true_metallurgy:steel_pommel",
+    "count": 1
+  }
+}

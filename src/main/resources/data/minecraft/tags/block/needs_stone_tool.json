@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "true_metallurgy:primitive_forge",
+    "true_metallurgy:iron_forge",
+    "true_metallurgy:basic_anvil",
+    "true_metallurgy:iron_anvil",
+    "true_metallurgy:grinding_wheel"
+  ]
+}

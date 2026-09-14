@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "HHH",
+    "HAH",
+    "OOO"
+  ],
+  "key": {
+    "H": {
+      "item": "true_metallurgy:hardened_billet"
+    },
+    "A": {
+      "item": "true_metallurgy:steel_anvil"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "result": {
+    "id": "true_metallurgy:master_anvil",
+    "count": 1
+  }
+}

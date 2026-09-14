@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "true_metallurgy:block/assembly_table"
+    },
+    "facing=east": {
+      "model": "true_metallurgy:block/assembly_table",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "true_metallurgy:block/assembly_table",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "true_metallurgy:block/assembly_table",
+      "y": 270
+    }
+  }
+}

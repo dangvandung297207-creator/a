@@ -1,0 +1,16 @@
+{
+  "type": "true_metallurgy:assembly",
+  "category": "sword",
+  "blade": {
+    "item": "true_metallurgy:sword_blade"
+  },
+  "slot_b": {
+    "tag": "true_metallurgy:guards"
+  },
+  "slot_c": {
+    "tag": "true_metallurgy:handles"
+  },
+  "slot_d": {
+    "tag": "true_metallurgy:pommels"
+  }
+}

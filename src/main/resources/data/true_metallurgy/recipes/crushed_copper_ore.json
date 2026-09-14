@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:raw_copper"
+    }
+  ],
+  "result": {
+    "id": "true_metallurgy:crushed_copper_ore",
+    "count": 1
+  }
+}

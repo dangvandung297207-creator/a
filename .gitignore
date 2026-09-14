@@ -1,0 +1,23 @@
+# Gradle
+.gradle/
+build/
+run*/
+out/
+repo/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.launch
+bin/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local run data (kept out of git)
+/run/
+
+__pycache__/
+*.pyc

@@ -1,0 +1,65 @@
+{
+  "parent": "true_metallurgy:masterwork",
+  "display": {
+    "icon": {
+      "id": "true_metallurgy:kings_edge_blueprint"
+    },
+    "title": {
+      "translate": "advancement.true_metallurgy.legendary"
+    },
+    "description": {
+      "translate": "advancement.true_metallurgy.legendary.desc"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "blueprint": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "true_metallurgy:kings_edge_blueprint"
+            ]
+          }
+        ]
+      }
+    },
+    "forged": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "true_metallurgy:copper_sword",
+              "true_metallurgy:copper_axe",
+              "true_metallurgy:copper_pickaxe",
+              "true_metallurgy:copper_spear",
+              "true_metallurgy:iron_sword",
+              "true_metallurgy:iron_axe",
+              "true_metallurgy:iron_pickaxe",
+              "true_metallurgy:iron_spear",
+              "true_metallurgy:steel_sword",
+              "true_metallurgy:steel_axe",
+              "true_metallurgy:steel_pickaxe",
+              "true_metallurgy:steel_spear",
+              "true_metallurgy:hardened_sword",
+              "true_metallurgy:hardened_axe",
+              "true_metallurgy:hardened_pickaxe",
+              "true_metallurgy:hardened_spear"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "blueprint",
+      "forged"
+    ]
+  ]
+}

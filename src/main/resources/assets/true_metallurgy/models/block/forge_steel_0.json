@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "true_metallurgy:block/forge_steel_side",
+    "up": "true_metallurgy:block/forge_steel_top",
+    "north": "true_metallurgy:block/forge_front_0",
+    "south": "true_metallurgy:block/forge_steel_side",
+    "east": "true_metallurgy:block/forge_steel_side",
+    "west": "true_metallurgy:block/forge_steel_side",
+    "particle": "true_metallurgy:block/forge_steel_side"
+  }
+}

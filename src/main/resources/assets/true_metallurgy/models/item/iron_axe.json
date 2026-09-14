@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "true_metallurgy:item/iron_axe"
+  }
+}

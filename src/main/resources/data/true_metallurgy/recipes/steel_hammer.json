@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "BB ",
+    "BB ",
+    " S "
+  ],
+  "key": {
+    "B": {
+      "item": "true_metallurgy:steel_billet"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "true_metallurgy:steel_hammer",
+    "count": 1
+  }
+}

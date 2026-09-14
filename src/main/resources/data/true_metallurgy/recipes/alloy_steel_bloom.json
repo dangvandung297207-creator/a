@@ -1,0 +1,14 @@
+{
+  "type": "true_metallurgy:alloy",
+  "primary": {
+    "item": "true_metallurgy:iron_bloom"
+  },
+  "carbon": {
+    "item": "true_metallurgy:coke"
+  },
+  "min_temp": 1200,
+  "time": 240,
+  "result": {
+    "id": "true_metallurgy:steel_bloom"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "liquid=none": {
+      "model": "true_metallurgy:block/quenching_barrel_none"
+    },
+    "liquid=water": {
+      "model": "true_metallurgy:block/quenching_barrel_water"
+    },
+    "liquid=oil": {
+      "model": "true_metallurgy:block/quenching_barrel_oil"
+    }
+  }
+}

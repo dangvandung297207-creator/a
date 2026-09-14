@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "true_metallurgy:block/tool_rack"
+    },
+    "facing=east": {
+      "model": "true_metallurgy:block/tool_rack",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "true_metallurgy:block/tool_rack",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "true_metallurgy:block/tool_rack",
+      "y": 270
+    }
+  }
+}

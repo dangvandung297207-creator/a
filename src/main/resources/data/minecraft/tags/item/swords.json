@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "true_metallurgy:copper_sword",
+    "true_metallurgy:copper_spear",
+    "true_metallurgy:iron_sword",
+    "true_metallurgy:iron_spear",
+    "true_metallurgy:steel_sword",
+    "true_metallurgy:steel_spear",
+    "true_metallurgy:hardened_sword",
+    "true_metallurgy:hardened_spear"
+  ]
+}

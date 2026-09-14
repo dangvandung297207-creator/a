@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "true_metallurgy:copper_bloom",
+    "true_metallurgy:iron_bloom",
+    "true_metallurgy:steel_bloom",
+    "true_metallurgy:hardened_bloom"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "HHH",
+    "HS ",
+    " S "
+  ],
+  "key": {
+    "H": {
+      "item": "true_metallurgy:hardened_billet"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "true_metallurgy:masterwork_hammer",
+    "count": 1
+  }
+}

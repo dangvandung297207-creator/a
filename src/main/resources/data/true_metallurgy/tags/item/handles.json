@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "true_metallurgy:oak_handle",
+    "true_metallurgy:spruce_handle",
+    "true_metallurgy:birch_handle",
+    "true_metallurgy:dark_oak_handle",
+    "true_metallurgy:bamboo_handle",
+    "true_metallurgy:reinforced_handle",
+    "true_metallurgy:leather_wrapped_handle",
+    "true_metallurgy:bone_handle"
+  ]
+}

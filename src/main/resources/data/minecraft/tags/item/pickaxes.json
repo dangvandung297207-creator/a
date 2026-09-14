@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "true_metallurgy:copper_pickaxe",
+    "true_metallurgy:iron_pickaxe",
+    "true_metallurgy:steel_pickaxe",
+    "true_metallurgy:hardened_pickaxe"
+  ]
+}

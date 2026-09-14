@@ -1,0 +1,32 @@
+modLoader="javafml"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
+
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+authors="True Metallurgy Team"
+description='''
+The Master Blacksmith - True Metallurgy.
+
+Raw Ore -> Processed Ore -> Bloom -> Billet -> Hot Billet ->
+Forged Component -> Quenching -> Grinding -> Assembly -> Finished Item.
+
+Real metallurgy: heat control, hammer craftsmanship, quenching,
+grinding and assembly. Every hammer strike matters.
+'''
+
+[[dependencies.${mod_id}]]
+modId="neoforge"
+type="required"
+versionRange="[${neo_version},)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="minecraft"
+type="required"
+versionRange="${minecraft_version_range}"
+ordering="NONE"
+side="BOTH"

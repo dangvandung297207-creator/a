@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "IBI",
+    "BFB",
+    "IBI"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_block"
+    },
+    "B": {
+      "item": "true_metallurgy:steel_billet"
+    },
+    "F": {
+      "item": "true_metallurgy:iron_forge"
+    }
+  },
+  "result": {
+    "id": "true_metallurgy:steel_forge",
+    "count": 1
+  }
+}

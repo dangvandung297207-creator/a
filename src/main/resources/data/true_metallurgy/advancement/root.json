@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "id": "true_metallurgy:masterwork_hammer"
+    },
+    "title": {
+      "translate": "advancement.true_metallurgy.root"
+    },
+    "description": {
+      "translate": "advancement.true_metallurgy.root.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+  },
+  "criteria": {
+    "forge": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "true_metallurgy:primitive_forge"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

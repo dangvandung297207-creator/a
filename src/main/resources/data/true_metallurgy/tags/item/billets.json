@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "true_metallurgy:copper_billet",
+    "true_metallurgy:iron_billet",
+    "true_metallurgy:steel_billet",
+    "true_metallurgy:hardened_billet"
+  ]
+}

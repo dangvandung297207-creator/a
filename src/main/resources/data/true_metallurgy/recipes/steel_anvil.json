@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SSS",
+    "SAS",
+    "SSS"
+  ],
+  "key": {
+    "S": {
+      "item": "true_metallurgy:steel_billet"
+    },
+    "A": {
+      "item": "true_metallurgy:iron_anvil"
+    }
+  },
+  "result": {
+    "id": "true_metallurgy:steel_anvil",
+    "count": 1
+  }
+}

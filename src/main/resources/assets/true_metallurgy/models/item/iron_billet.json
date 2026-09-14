@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "true_metallurgy:item/iron_billet_0"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "true_metallurgy:heat": 0.25
+      },
+      "model": "true_metallurgy:item/iron_billet_1"
+    },
+    {
+      "predicate": {
+        "true_metallurgy:heat": 0.5
+      },
+      "model": "true_metallurgy:item/iron_billet_2"
+    },
+    {
+      "predicate": {
+        "true_metallurgy:heat": 0.75
+      },
+      "model": "true_metallurgy:item/iron_billet_3"
+    },
+    {
+      "predicate": {
+        "true_metallurgy:heat": 1.0
+      },
+      "model": "true_metallurgy:item/iron_billet_4"
+    }
+  ]
+}

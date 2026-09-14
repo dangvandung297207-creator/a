@@ -1,0 +1,10 @@
+{
+  "type": "true_metallurgy:assembly",
+  "category": "axe",
+  "blade": {
+    "item": "true_metallurgy:axe_head"
+  },
+  "slot_b": {
+    "tag": "true_metallurgy:handles"
+  }
+}

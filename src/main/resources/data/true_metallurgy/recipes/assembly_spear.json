@@ -1,0 +1,13 @@
+{
+  "type": "true_metallurgy:assembly",
+  "category": "spear",
+  "blade": {
+    "item": "true_metallurgy:spear_head"
+  },
+  "slot_b": {
+    "item": "true_metallurgy:long_shaft"
+  },
+  "slot_c": {
+    "item": "true_metallurgy:binding"
+  }
+}

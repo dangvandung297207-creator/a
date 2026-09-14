@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "spin=0,facing=north": {
+      "model": "true_metallurgy:block/grinding_wheel_0"
+    },
+    "spin=0,facing=east": {
+      "model": "true_metallurgy:block/grinding_wheel_0",
+      "y": 90
+    },
+    "spin=0,facing=south": {
+      "model": "true_metallurgy:block/grinding_wheel_0",
+      "y": 180
+    },
+    "spin=0,facing=west": {
+      "model": "true_metallurgy:block/grinding_wheel_0",
+      "y": 270
+    },
+    "spin=1,facing=north": {
+      "model": "true_metallurgy:block/grinding_wheel_1"
+    },
+    "spin=1,facing=east": {
+      "model": "true_metallurgy:block/grinding_wheel_1",
+      "y": 90
+    },
+    "spin=1,facing=south": {
+      "model": "true_metallurgy:block/grinding_wheel_1",
+      "y": 180
+    },
+    "spin=1,facing=west": {
+      "model": "true_metallurgy:block/grinding_wheel_1",
+      "y": 270
+    },
+    "spin=2,facing=north": {
+      "model": "true_metallurgy:block/grinding_wheel_2"
+    },
+    "spin=2,facing=east": {
+      "model": "true_metallurgy:block/grinding_wheel_2",
+      "y": 90
+    },
+    "spin=2,facing=south": {
+      "model": "true_metallurgy:block/grinding_wheel_2",
+      "y": 180
+    },
+    "spin=2,facing=west": {
+      "model": "true_metallurgy:block/grinding_wheel_2",
+      "y": 270
+    },
+    "spin=3,facing=north": {
+      "model": "true_metallurgy:block/grinding_wheel_3"
+    },
+    "spin=3,facing=east": {
+      "model": "true_metallurgy:block/grinding_wheel_3",
+      "y": 90
+    },
+    "spin=3,facing=south": {
+      "model": "true_metallurgy:block/grinding_wheel_3",
+      "y": 180
+    },
+    "spin=3,facing=west": {
+      "model": "true_metallurgy:block/grinding_wheel_3",
+      "y": 270
+    }
+  }
+}

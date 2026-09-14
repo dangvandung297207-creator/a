@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "III",
+    "IFI",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_block"
+    },
+    "F": {
+      "item": "true_metallurgy:primitive_forge"
+    }
+  },
+  "result": {
+    "id": "true_metallurgy:iron_forge",
+    "count": 1
+  }
+}

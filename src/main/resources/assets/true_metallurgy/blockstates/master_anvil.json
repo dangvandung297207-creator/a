@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "true_metallurgy:block/anvil_master"
+    },
+    "facing=east": {
+      "model": "true_metallurgy:block/anvil_master",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "true_metallurgy:block/anvil_master",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "true_metallurgy:block/anvil_master",
+      "y": 270
+    }
+  }
+}

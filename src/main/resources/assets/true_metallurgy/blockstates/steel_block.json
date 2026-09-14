@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "true_metallurgy:block/steel_block"
+    }
+  }
+}

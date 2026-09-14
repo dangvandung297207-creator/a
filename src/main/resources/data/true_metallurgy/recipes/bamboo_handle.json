@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "B",
+    "B"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:bamboo"
+    }
+  },
+  "result": {
+    "id": "true_metallurgy:bamboo_handle",
+    "count": 2
+  }
+}
