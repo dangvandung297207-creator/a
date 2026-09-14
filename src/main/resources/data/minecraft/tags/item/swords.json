@@ -1,6 +1,4 @@
 {
   "replace": false,
-  "values": [
-    "enderblade:ender_blade"
-  ]
+  "values": ["enderblade:ender_blade"]
 }

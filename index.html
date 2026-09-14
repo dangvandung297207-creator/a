@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đoản Kiếm Hư Vô — Ender Blade Showcase</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="app">
+    <canvas id="c"></canvas>
+
+    <!-- Top bar -->
+    <header class="hud-top">
+      <div class="title-block">
+        <p class="eyebrow">LEGENDARY WEAPON ASSET</p>
+        <h1>ĐOẢN KIẾM HƯ VÔ</h1>
+        <p class="subtitle">ENDER BLADE <span class="sep">//</span> VOID CONTROLLER</p>
+      </div>
+      <div class="stats">
+        <div class="stat"><span class="k">Reach</span><span class="v">4 Blk</span></div>
+        <div class="stat"><span class="k">Tier</span><span class="v">Netherite</span></div>
+        <div class="stat"><span class="k">CD</span><span class="v">12s</span></div>
+        <div class="stat"><span class="k">Mark</span><span class="v">×3</span></div>
+      </div>
+    </header>
+
+    <!-- Left: animations -->
+    <aside class="panel panel-left">
+      <h2>Animations</h2>
+      <div class="btn-grid" id="anim-buttons">
+        <button data-anim="idle" class="active">Idle</button>
+        <button data-anim="equip">Equip</button>
+        <button data-anim="stance">Combat Stance</button>
+        <button data-anim="attack1">Attack 1</button>
+        <button data-anim="attack2">Attack 2</button>
+        <button data-anim="attack3">Attack 3</button>
+        <button data-anim="voidSlash">Void Slash</button>
+        <button data-anim="enderEcho">Ender Echo</button>
+        <button data-anim="teleport">Teleport</button>
+        <button data-anim="voidAnchor">Void Anchor</button>
+        <button data-anim="paradoxStep">Paradox Step</button>
+        <button data-anim="ultimate">Ultimate</button>
+        <button data-anim="riftCollapse">Rift Collapse</button>
+        <button data-anim="passive">Chém Xuyên Không</button>
+      </div>
+
+      <h2 class="mt">Presentation</h2>
+      <div class="btn-grid cols-2">
+        <button id="btn-rotate" class="toggle active">Auto Rotate</button>
+        <button id="btn-vfx" class="toggle active">VFX On</button>
+        <button id="btn-wire" class="toggle">Wireframe</button>
+        <button id="btn-model" class="toggle">Model Only</button>
+      </div>
+
+      <div class="slider-row">
+        <label>Zoom</label>
+        <input type="range" id="zoom" min="2.5" max="9" step="0.05" value="4.8" />
+      </div>
+      <div class="slider-row">
+        <label>Playback</label>
+        <input type="range" id="speed" min="0.25" max="2" step="0.05" value="1" />
+      </div>
+    </aside>
+
+    <!-- Right: lore -->
+    <aside class="panel panel-right">
+      <h2>Weapon Identity</h2>
+      <p class="lore">
+        Forged from <b>Netherite</b>, quenched in <b>Dragon Breath</b>,
+        sealed with an <b>Eye of Ender</b>. The blade does not merely cut flesh —
+        it severs the continuity of space itself.
+      </p>
+
+      <h2 class="mt">Structure</h2>
+      <ul class="parts" id="parts-list">
+        <li data-part="Blade"><i></i>Blade</li>
+        <li data-part="Blade_Edge"><i></i>Blade Edge</li>
+        <li data-part="Void_Cracks"><i></i>Void Cracks</li>
+        <li data-part="Guard"><i></i>Guard</li>
+        <li data-part="Handle"><i></i>Handle</li>
+        <li data-part="Pommel"><i></i>Pommel</li>
+        <li data-part="Ender_Core"><i></i>Ender Core</li>
+        <li data-part="Runes"><i></i>Runes</li>
+        <li data-part="EmissiveParts"><i></i>Emissive Parts</li>
+      </ul>
+
+      <h2 class="mt">Abilities</h2>
+      <div class="ability-card">
+        <div class="ability-name">Chém Xuyên Không</div>
+        <div class="ability-desc">20% — displace target through fractured space (~3 blk).</div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Ender Echo</div>
+        <div class="ability-desc">Launch spatial orb · re-cast to teleport · 12s CD.</div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Void Anchor</div>
+        <div class="ability-desc">Shift+RMB place / recall dimensional anchor.</div>
+      </div>
+      <div class="ability-card">
+        <div class="ability-name">Void Mark ×3</div>
+        <div class="ability-desc">Stacks to Rift Collapse — space compresses inward.</div>
+      </div>
+      <div class="ability-card ultimate">
+        <div class="ability-name">End Dimension</div>
+        <div class="ability-desc">5s domain · marked enemies pulled · total Rift Collapse.</div>
+      </div>
+    </aside>
+
+    <!-- Bottom status -->
+    <footer class="hud-bottom">
+      <div class="now-playing">
+        <span class="label">NOW</span>
+        <span id="now-name">Idle</span>
+      </div>
+      <div class="progress-wrap">
+        <div id="progress" class="progress"></div>
+      </div>
+      <div class="hint">Drag to orbit · Scroll to zoom · Click parts to isolate</div>
+    </footer>
+
+    <!-- Loading -->
+    <div id="loader">
+      <div class="loader-inner">
+        <div class="rift-spinner"></div>
+        <p>Opening dimensional rift…</p>
+        <p class="sub">Đoản Kiếm Hư Vô</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./vendor/three/three.module.js",
+      "three/addons/": "./vendor/three/jsm/"
+    }
+  }
+  </script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

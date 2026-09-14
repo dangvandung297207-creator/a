@@ -1,56 +1,52 @@
-# Ender Blade (Đoản Kiếm Hư Không)
+# Đoản Kiếm Hư Không — Ender Blade
 
-NeoForge **1.21.1** (Java 21) mod that adds the **Ender Blade** — a netherite-tier void sword.
+**NeoForge 1.21.1 · Java 21** legendary dimensional assassin weapon.
 
 ## Features
 
-| Feature | Details |
+| System | Details |
 |--------|---------|
-| **Stats** | 8.0 attack damage · 1.6 attack speed · 2031 durability · Fire-resistant · Epic rarity |
-| **Reach** | `+1.0` `ENTITY_INTERACTION_RANGE` on mainhand (3 → 4 blocks) |
-| **Void Slash** | 20% on-hit chance to chaotic-teleport the target within 3 blocks, reset velocity, portal FX |
-| **Ender Phantom** | Shift + RMB launches a piercing no-gravity phantom (2 s). Shift + RMB again swaps you to it (no pearl damage). 12 s cooldown. |
+| **Stats** | Netherite tier · 8.0 dmg · 1.6 speed · 2031 durability · **4-block reach** · Fireproof · Epic |
+| **Model** | Custom voxel 3D (Blade / Edge / Void Cracks / Guard / Handle / Pommel / Ender Core / Runes / Emissive) |
+| **Passive** | *Chém Xuyên Không* — 20% spatial displace (~3 blk), momentum interrupt, Void Mark |
+| **Ender Echo** | RMB launch piercing void orb · RMB again ≤2s teleport (no pearl damage) · 12s CD |
+| **Void Anchor** | Shift+RMB place / recall floating End core |
+| **Void Slash** | Key **R** — dimensional cut rift ahead · damage + mark |
+| **Paradox Step** | Key **V** (or auto on hit during window) — afterimage counter, blink behind, crit |
+| **Void Mark ×3** | Rotating rune · at 3 stacks **Rift Collapse** |
+| **Ultimate** | Key **G** or Sprint+Shift+RMB — 5s End Dimension domain → mass collapse |
+| **VFX** | Mesh rifts, rings, afterimages, emissive cracks — not vanilla particle spam |
+| **Audio** | Distorted End/void sound events for every ability |
 
-## Crafting
+## Craft
 
-**Shapeless** (Crafting Table):
+**Shapeless:** Netherite Sword + Dragon Breath + Eye of Ender → Ender Blade
 
-- `minecraft:netherite_sword`
-- `minecraft:dragon_breath`
-- `minecraft:eye_of_ender`
+## Controls
 
-→ `enderblade:ender_blade`
+| Input | Ability |
+|-------|---------|
+| LMB | 3-hit combo + passive |
+| RMB | Ender Echo / teleport |
+| Shift + RMB | Void Anchor |
+| **R** | Void Slash |
+| **V** | Paradox Step |
+| **G** | End Dimension ultimate |
+| Sprint + Shift + RMB | Ultimate (alt) |
 
-A shaped alternate recipe (with echo shards) is also provided.
-
-## Project layout
-
-```
-src/main/java/com/enderblade/
-├── EnderBladeMod.java              # @Mod entrypoint
-├── component/PhantomLink.java      # Data component (projectile UUID + expiry)
-├── item/EnderBladeItem.java        # Sword logic (passive + active)
-├── entity/EnderPhantomProjectile.java
-├── client/EnderBladeClient.java    # ThrownItemRenderer registration
-└── registry/
-    ├── ModItems.java
-    ├── ModEntities.java
-    ├── ModDataComponents.java
-    └── ModCreativeTabs.java
-```
-
-## Build / run
+## Build
 
 ```bash
-./gradlew build          # produce JAR in build/libs
-./gradlew runClient      # launch Minecraft client with the mod
+./gradlew build
+# JAR → build/libs/enderblade-1.0.0.jar
 ```
 
-Requires **JDK 21**. NeoForge `21.1.250` is pinned in `gradle.properties`.
+Requires **JDK 21** and NeoForge `21.1.x`.
 
-## ID
+## Preview
 
-- Mod ID: `enderblade`
-- Item: `enderblade:ender_blade`
-- Entity: `enderblade:ender_phantom`
-- Data component: `enderblade:phantom_link`
+Open `index.html` for the Three.js weapon showcase (source of visual truth).
+
+## Package
+
+`com.enderblade` — item, entities, abilities, network, client renderers/VFX, data components, attachments.

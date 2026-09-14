@@ -1,25 +1,11 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "equipment",
-  "pattern": [
-    " D ",
-    "ENE",
-    " S "
+  "ingredients": [
+    { "item": "minecraft:netherite_sword" },
+    { "item": "minecraft:dragon_breath" },
+    { "item": "minecraft:eye_of_ender" }
   ],
-  "key": {
-    "N": {
-      "item": "minecraft:netherite_sword"
-    },
-    "D": {
-      "item": "minecraft:dragon_breath"
-    },
-    "E": {
-      "item": "minecraft:eye_of_ender"
-    },
-    "S": {
-      "item": "minecraft:echo_shard"
-    }
-  },
   "result": {
     "id": "enderblade:ender_blade",
     "count": 1

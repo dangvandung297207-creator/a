@@ -1,8 +1,20 @@
 {
   "item.enderblade.ender_blade": "Đoản Kiếm Hư Không",
-  "item.enderblade.ender_blade.desc.passive": "Chém Xuyên Không: 20% dịch chuyển hỗn loạn mục tiêu",
-  "item.enderblade.ender_blade.desc.active": "Shift + Chuột phải: Phóng / Hoán đổi Ảo Ảnh Ender",
-  "item.enderblade.ender_blade.desc.reach": "+1 Tầm đánh",
+  "item.enderblade.ender_blade.desc.passive": "Chém Xuyên Không: 20% dịch chuyển mục tiêu qua không gian nứt",
+  "item.enderblade.ender_blade.desc.echo": "Chuột phải: Phóng Ảo Ảnh Ender · bấm lại (2s): Dịch chuyển · CD 12s",
+  "item.enderblade.ender_blade.desc.anchor": "Shift+Chuột phải: Đặt / Hồi gọi Neo Hư Không",
+  "item.enderblade.ender_blade.desc.slash": "Phím R: Chém Không Gian",
+  "item.enderblade.ender_blade.desc.paradox": "Phím V: Bước Nghịch Lý (phản đòn / chớp crit)",
+  "item.enderblade.ender_blade.desc.ultimate": "Phím G / Sprint+Shift+RMB: Tuyệt kỹ End Dimension",
+  "item.enderblade.ender_blade.desc.reach": "+1 Tầm đánh (4 block) · Void Mark ×3 → Rift Collapse",
   "itemGroup.enderblade": "Đoản Kiếm Hư Không",
-  "entity.enderblade.ender_phantom": "Ảo Ảnh Ender"
+  "entity.enderblade.ender_echo": "Ảo Ảnh Ender",
+  "entity.enderblade.void_anchor": "Neo Hư Không",
+  "entity.enderblade.void_slash": "Chém Không Gian",
+  "entity.enderblade.end_dimension_zone": "End Dimension",
+  "effect.enderblade.void_mark": "Dấu Hư Không",
+  "key.categories.enderblade": "Đoản Kiếm Hư Không",
+  "key.enderblade.void_slash": "Chém Không Gian",
+  "key.enderblade.paradox": "Bước Nghịch Lý",
+  "key.enderblade.ultimate": "End Dimension"
 }

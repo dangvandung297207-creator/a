@@ -1,20 +1,21 @@
 package com.enderblade.item;
 
+import com.enderblade.ability.AbilityHelper;
+import com.enderblade.ability.PlayerBladeData;
+import com.enderblade.component.AnchorLink;
 import com.enderblade.component.PhantomLink;
-import com.enderblade.entity.EnderPhantomProjectile;
+import com.enderblade.entity.EndDimensionZoneEntity;
+import com.enderblade.entity.EnderEchoProjectile;
+import com.enderblade.entity.VoidAnchorEntity;
+import com.enderblade.entity.VoidSlashEntity;
 import com.enderblade.registry.ModDataComponents;
-import com.enderblade.registry.ModEntities;
 import com.enderblade.registry.ModItems;
+import com.enderblade.registry.ModSounds;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -26,8 +27,6 @@ import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
@@ -35,296 +34,330 @@ import java.util.Optional;
 import java.util.UUID;
 
 /**
- * Đoản Kiếm Hư Không (Ender Blade).
+ * Đoản Kiếm Hư Không — full ability suite.
  *
- * <h2>Passive — Void Slash</h2>
- * 20% chance on hit to randomly teleport the target within a 3-block radius,
- * reset their velocity, and play enderman teleport FX.
- *
- * <h2>Active — Ender Phantom (Shift + Right Click)</h2>
  * <ul>
- *   <li>First press: launch a piercing {@link EnderPhantomProjectile} (40 tick lifetime).</li>
- *   <li>Second press (while alive): teleport the player to the phantom without pearl damage.</li>
- *   <li>Timeout / after swap: 240 tick (12 s) item cooldown.</li>
+ *   <li>LMB combo 1-2-3 + passive Chém Xuyên Không</li>
+ *   <li>RMB — Ender Echo / teleport recall</li>
+ *   <li>Shift+RMB — Void Anchor place / recall</li>
+ *   <li>Shift+LMB (hurtEnemy path) heavy handled via combo</li>
+ * </ul>
+ *
+ * Hotkeys for advanced abilities (Void Slash / Paradox / Ultimate) are
+ * handled via {@link com.enderblade.event.ModEvents} key packet + sneak combos:
+ * <ul>
+ *   <li>Sneak + Sprint + RMB = Ultimate</li>
+ *   <li>Sneak + Attack key binding via secondary use — Void Slash on cooldown item use while sprinting</li>
  * </ul>
  */
 public class EnderBladeItem extends SwordItem {
-
-    /** Chance to trigger chaotic teleport on hit. */
-    public static final float VOID_SLASH_CHANCE = 0.20f;
-    /** Radius (blocks) for chaotic target teleport. */
-    public static final double VOID_SLASH_RADIUS = 3.0D;
-    /** Phantom projectile lifetime in ticks (2 seconds). */
-    public static final int PHANTOM_LIFETIME_TICKS = 40;
-    /** Item cooldown after ability resolves (12 seconds). */
-    public static final int ABILITY_COOLDOWN_TICKS = 240;
-    /** Launch speed of the phantom projectile. */
-    public static final float PHANTOM_LAUNCH_SPEED = 1.75f;
 
     public EnderBladeItem(Tier tier, Item.Properties properties) {
         super(tier, properties);
     }
 
-    // -------------------------------------------------------------------------
-    // Passive: Void Slash
-    // -------------------------------------------------------------------------
+    // =====================================================================
+    // Passive
+    // =====================================================================
 
-    /**
-     * Called when this weapon successfully damages a living entity.
-     * Implements the 20% chaotic teleport passive.
-     */
     @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         boolean result = super.hurtEnemy(stack, target, attacker);
 
-        Level level = target.level();
-        if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
-            RandomSource random = level.getRandom();
-            if (random.nextFloat() < VOID_SLASH_CHANCE) {
-                applyVoidSlash(serverLevel, target, random);
-            }
-        }
+        if (!attacker.level().isClientSide && attacker.level() instanceof ServerLevel server) {
+            // Combo tracking + anim
+            if (attacker instanceof ServerPlayer sp) {
+                PlayerBladeData data = AbilityHelper.data(sp);
+                int hit = data.nextCombo(server.getGameTime());
+                String anim = switch (hit) {
+                    case 0 -> "attack1";
+                    case 1 -> "attack2";
+                    default -> "attack3";
+                };
+                AbilityHelper.broadcastAnim(sp, anim);
+                server.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(),
+                        hit == 2 ? ModSounds.HEAVY_SLASH.get() : ModSounds.SLASH.get(),
+                        SoundSource.PLAYERS, 0.9f, 0.95f + hit * 0.08f);
 
+                // Open paradox window briefly after a successful hit
+                data.paradoxWindowUntil = server.getGameTime() + 30;
+            }
+
+            AbilityHelper.tryVoidDisplace(server, target, attacker);
+        }
         return result;
     }
 
-    /**
-     * Teleports {@code target} to a safe random position within {@link #VOID_SLASH_RADIUS},
-     * zeroes their delta movement, and plays portal particles / enderman teleport sound
-     * at both the old and new locations.
-     */
-    public static void applyVoidSlash(ServerLevel level, LivingEntity target, RandomSource random) {
-        Vec3 origin = target.position();
-
-        Optional<Vec3> destination = findSafeTeleportPos(level, target, origin, VOID_SLASH_RADIUS, random, 16);
-        if (destination.isEmpty()) {
-            return;
-        }
-
-        Vec3 dest = destination.get();
-
-        // FX at old position
-        spawnPortalBurst(level, origin);
-        level.playSound(null, origin.x, origin.y, origin.z,
-                SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1.0f, 1.0f);
-
-        // Perform teleport and kill momentum
-        target.teleportTo(dest.x, dest.y, dest.z);
-        target.setDeltaMovement(Vec3.ZERO);
-        target.hurtMarked = true;
-        target.fallDistance = 0.0f;
-
-        // FX at new position
-        spawnPortalBurst(level, dest);
-        level.playSound(null, dest.x, dest.y, dest.z,
-                SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1.0f, 1.15f);
-    }
-
-    // -------------------------------------------------------------------------
-    // Active: Ender Phantom launch / swap
-    // -------------------------------------------------------------------------
+    // =====================================================================
+    // Use — Echo / Anchor / Ultimate / Void Slash routing
+    // =====================================================================
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
-        // Ability requires sneaking (Shift)
-        if (!player.isShiftKeyDown()) {
-            return InteractionResultHolder.pass(stack);
-        }
-
-        // Respect item cooldown
-        if (player.getCooldowns().isOnCooldown(this)) {
-            return InteractionResultHolder.fail(stack);
-        }
-
         if (level.isClientSide) {
             return InteractionResultHolder.sidedSuccess(stack, true);
         }
-
-        if (!(level instanceof ServerLevel serverLevel)) {
+        if (!(level instanceof ServerLevel server) || !(player instanceof ServerPlayer sp)) {
             return InteractionResultHolder.pass(stack);
         }
 
-        PhantomLink link = stack.getOrDefault(ModDataComponents.PHANTOM_LINK.get(), PhantomLink.EMPTY);
-        long gameTime = serverLevel.getGameTime();
+        long now = server.getGameTime();
+        PlayerBladeData data = AbilityHelper.data(sp);
 
-        // --- Second press: swap to existing phantom ---
-        if (link.isActive(gameTime)) {
-            Entity phantom = serverLevel.getEntity(link.projectileId().orElseThrow());
-            if (phantom instanceof EnderPhantomProjectile livingPhantom && livingPhantom.isAlive()) {
-                performPhantomSwap(serverLevel, player, livingPhantom, stack);
+        // ---- Ultimate: Sneak + Sprint + RMB ----
+        if (player.isShiftKeyDown() && player.isSprinting()) {
+            return tryUltimate(server, sp, stack, data, now);
+        }
+
+        // ---- Void Slash: Sneak only while on ground looking down-ish? Use secondary: sneak + not sprint ----
+        // Spec: Shift+RMB = Void Anchor. Plain RMB = Echo.
+        // Void Slash / Paradox activated via dedicated methods (also called from network/key).
+        if (player.isShiftKeyDown()) {
+            return tryVoidAnchor(server, sp, stack, data, now);
+        }
+
+        return tryEnderEcho(server, sp, stack, data, now);
+    }
+
+    // =====================================================================
+    // Ender Echo
+    // =====================================================================
+
+    private InteractionResultHolder<ItemStack> tryEnderEcho(ServerLevel level, ServerPlayer player,
+                                                            ItemStack stack, PlayerBladeData data, long now) {
+        PhantomLink link = stack.getOrDefault(ModDataComponents.PHANTOM_LINK.get(), PhantomLink.EMPTY);
+
+        // Second press — teleport to living echo
+        if (link.isActive(now)) {
+            Entity echo = level.getEntity(link.projectileId().orElseThrow());
+            if (echo instanceof EnderEchoProjectile proj && proj.isAlive()) {
+                Vec3 dest = proj.position();
+                proj.discard();
+                stack.set(ModDataComponents.PHANTOM_LINK.get(), PhantomLink.EMPTY);
+                AbilityHelper.teleportPlayerNoDamage(player, dest);
+                data.echoCooldownUntil = now + AbilityHelper.ECHO_COOLDOWN;
+                player.getCooldowns().addCooldown(this, AbilityHelper.ECHO_COOLDOWN);
                 return InteractionResultHolder.sidedSuccess(stack, false);
             }
-            // Phantom already gone — clear stale link and fall through to launch
             stack.set(ModDataComponents.PHANTOM_LINK.get(), PhantomLink.EMPTY);
         }
 
-        // --- First press: launch phantom ---
-        launchPhantom(serverLevel, player, stack);
+        if (data.isOnCooldown(now, data.echoCooldownUntil) || player.getCooldowns().isOnCooldown(this)) {
+            return InteractionResultHolder.fail(stack);
+        }
+
+        // Launch
+        EnderEchoProjectile echo = new EnderEchoProjectile(level, player);
+        Vec3 eye = player.getEyePosition();
+        echo.setPos(eye.x, eye.y, eye.z);
+        echo.shootFromRotation(player, player.getXRot(), player.getYRot(), 0f, 1.75f, 0f);
+        echo.setLifetime(AbilityHelper.PHANTOM_LIFETIME);
+        level.addFreshEntity(echo);
+
+        stack.set(ModDataComponents.PHANTOM_LINK.get(),
+                PhantomLink.of(echo.getUUID(), now + AbilityHelper.PHANTOM_LIFETIME));
+
+        level.playSound(null, player.getX(), player.getY(), player.getZ(),
+                ModSounds.ECHO_LAUNCH.get(), SoundSource.PLAYERS, 0.9f, 1.2f);
+        AbilityHelper.broadcastAnim(player, "ender_echo");
+        AbilityHelper.broadcastVfx(level, eye, "echo_launch", 0.8f);
+
         return InteractionResultHolder.sidedSuccess(stack, false);
     }
 
-    /**
-     * Spawns an {@link EnderPhantomProjectile}, records its UUID on the item via
-     * {@link PhantomLink}, and plays a soft launch cue.
-     */
-    private void launchPhantom(ServerLevel level, Player player, ItemStack stack) {
-        EnderPhantomProjectile phantom = new EnderPhantomProjectile(
-                ModEntities.ENDER_PHANTOM.get(), level, player);
-
-        Vec3 eye = player.getEyePosition();
-        phantom.setPos(eye.x, eye.y, eye.z);
-        phantom.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f,
-                PHANTOM_LAUNCH_SPEED, 0.0f);
-        phantom.setNoGravity(true);
-        phantom.setLifetimeTicks(PHANTOM_LIFETIME_TICKS);
-
-        level.addFreshEntity(phantom);
-
-        long expireAt = level.getGameTime() + PHANTOM_LIFETIME_TICKS;
-        stack.set(ModDataComponents.PHANTOM_LINK.get(), PhantomLink.of(phantom.getUUID(), expireAt));
-
-        level.playSound(null, player.getX(), player.getY(), player.getZ(),
-                SoundEvents.ENDER_EYE_LAUNCH, SoundSource.PLAYERS, 0.8f, 1.4f);
-
-        // Small dragon-breath puff at the player's eyes
-        level.sendParticles(ParticleTypes.DRAGON_BREATH,
-                eye.x, eye.y, eye.z, 8, 0.15, 0.15, 0.15, 0.01);
-    }
-
-    /**
-     * Teleports the player to the phantom's current position without pearl fall damage,
-     * discards the projectile, applies the 12 s cooldown, and plays chorus-fruit FX.
-     */
-    private void performPhantomSwap(ServerLevel level, Player player,
-                                    EnderPhantomProjectile phantom, ItemStack stack) {
-        Vec3 dest = phantom.position();
-        Vec3 origin = player.position();
-
-        // Discard phantom first so its tick won't race us
-        phantom.discard();
-        stack.set(ModDataComponents.PHANTOM_LINK.get(), PhantomLink.EMPTY);
-
-        // Safe teleport — no ender-pearl damage
-        if (player instanceof ServerPlayer serverPlayer) {
-            serverPlayer.teleportTo(dest.x, dest.y, dest.z);
-        } else {
-            player.teleportTo(dest.x, dest.y, dest.z);
-        }
-        player.setDeltaMovement(Vec3.ZERO);
-        player.hurtMarked = true;
-        player.fallDistance = 0.0f;
-        player.resetFallDistance();
-
-        // Cooldown
-        player.getCooldowns().addCooldown(this, ABILITY_COOLDOWN_TICKS);
-
-        // Wide portal burst + chorus fruit sound at landing
-        spawnWidePortalBurst(level, dest);
-        level.playSound(null, dest.x, dest.y, dest.z,
-                SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.PLAYERS, 1.0f, 1.0f);
-
-        // Also a small burst at the departure point
-        spawnPortalBurst(level, origin);
-    }
-
-    /**
-     * Called by the phantom when it times out so the owning stack can start cooldown
-     * and clear its data component.
-     */
-    public static void onPhantomExpired(ServerLevel level, UUID ownerUuid, UUID phantomUuid) {
+    public static void onEchoExpired(ServerLevel level, UUID ownerUuid, UUID echoUuid) {
         Player player = level.getPlayerByUUID(ownerUuid);
-        if (player == null) {
-            return;
-        }
+        if (player == null) return;
 
-        // Search mainhand / offhand for a blade still linked to this phantom
         for (InteractionHand hand : InteractionHand.values()) {
             ItemStack stack = player.getItemInHand(hand);
-            if (!stack.is(ModItems.ENDER_BLADE.get())) {
-                continue;
-            }
+            if (!stack.is(ModItems.ENDER_BLADE.get())) continue;
             PhantomLink link = stack.getOrDefault(ModDataComponents.PHANTOM_LINK.get(), PhantomLink.EMPTY);
-            if (link.projectileId().isPresent() && link.projectileId().get().equals(phantomUuid)) {
+            if (link.projectileId().isPresent() && link.projectileId().get().equals(echoUuid)) {
                 stack.set(ModDataComponents.PHANTOM_LINK.get(), PhantomLink.EMPTY);
-                player.getCooldowns().addCooldown(ModItems.ENDER_BLADE.get(), ABILITY_COOLDOWN_TICKS);
-                level.playSound(null, player.getX(), player.getY(), player.getZ(),
-                        SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 0.5f, 1.6f);
+                PlayerBladeData data = AbilityHelper.data(player);
+                long now = level.getGameTime();
+                data.echoCooldownUntil = now + AbilityHelper.ECHO_COOLDOWN;
+                player.getCooldowns().addCooldown(ModItems.ENDER_BLADE.get(), AbilityHelper.ECHO_COOLDOWN);
                 return;
             }
         }
     }
 
-    // -------------------------------------------------------------------------
+    // =====================================================================
+    // Void Anchor
+    // =====================================================================
+
+    private InteractionResultHolder<ItemStack> tryVoidAnchor(ServerLevel level, ServerPlayer player,
+                                                             ItemStack stack, PlayerBladeData data, long now) {
+        AnchorLink link = stack.getOrDefault(ModDataComponents.ANCHOR_LINK.get(), AnchorLink.EMPTY);
+
+        if (link.isPresent()) {
+            Entity e = level.getEntity(link.anchorId().orElseThrow());
+            if (e instanceof VoidAnchorEntity anchor && anchor.isAlive()) {
+                Vec3 dest = anchor.position();
+                // Validate safe
+                if (!AbilityHelper.safeTeleport(player, dest.x, dest.y, dest.z)) {
+                    // force near
+                    player.teleportTo(dest.x, dest.y, dest.z);
+                    player.fallDistance = 0;
+                }
+                AbilityHelper.afterimageBurst(level, player.position().add(0, 1, 0));
+                anchor.activateAndConsume();
+                stack.set(ModDataComponents.ANCHOR_LINK.get(), AnchorLink.EMPTY);
+                data.anchorCooldownUntil = now + AbilityHelper.ANCHOR_COOLDOWN;
+                AbilityHelper.broadcastAnim(player, "void_anchor");
+                AbilityHelper.teleportPlayerNoDamage(player, dest);
+                return InteractionResultHolder.sidedSuccess(stack, false);
+            }
+            stack.set(ModDataComponents.ANCHOR_LINK.get(), AnchorLink.EMPTY);
+        }
+
+        if (data.isOnCooldown(now, data.anchorCooldownUntil)) {
+            return InteractionResultHolder.fail(stack);
+        }
+
+        // Place
+        VoidAnchorEntity anchor = new VoidAnchorEntity(level, player.position().add(0, 0.2, 0), player.getUUID());
+        level.addFreshEntity(anchor);
+        stack.set(ModDataComponents.ANCHOR_LINK.get(), AnchorLink.of(anchor.getUUID()));
+        level.playSound(null, player.getX(), player.getY(), player.getZ(),
+                ModSounds.ANCHOR.get(), SoundSource.PLAYERS, 0.9f, 1.0f);
+        AbilityHelper.broadcastAnim(player, "void_anchor");
+        AbilityHelper.broadcastVfx(level, anchor.position().add(0, 0.5, 0), "anchor_place", 1.0f);
+
+        return InteractionResultHolder.sidedSuccess(stack, false);
+    }
+
+    // =====================================================================
+    // Void Slash (public for keybind / event)
+    // =====================================================================
+
+    public static boolean tryVoidSlash(ServerLevel level, ServerPlayer player) {
+        ItemStack stack = player.getMainHandItem();
+        if (!stack.is(ModItems.ENDER_BLADE.get())) return false;
+
+        PlayerBladeData data = AbilityHelper.data(player);
+        long now = level.getGameTime();
+        if (data.isOnCooldown(now, data.voidSlashCooldownUntil)) return false;
+
+        VoidSlashEntity slash = new VoidSlashEntity(level, player);
+        level.addFreshEntity(slash);
+        data.voidSlashCooldownUntil = now + AbilityHelper.VOID_SLASH_COOLDOWN;
+        level.playSound(null, player.getX(), player.getY(), player.getZ(),
+                ModSounds.VOID_SLASH.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
+        AbilityHelper.broadcastAnim(player, "void_slash");
+        return true;
+    }
+
+    // =====================================================================
+    // Paradox Step
+    // =====================================================================
+
+    public static boolean tryParadoxStep(ServerLevel level, ServerPlayer player, LivingEntity attacker) {
+        ItemStack stack = player.getMainHandItem();
+        if (!stack.is(ModItems.ENDER_BLADE.get())) return false;
+
+        PlayerBladeData data = AbilityHelper.data(player);
+        long now = level.getGameTime();
+        if (data.isOnCooldown(now, data.paradoxCooldownUntil)) return false;
+        if (now > data.paradoxWindowUntil && attacker == null) {
+            // Manual activation: allow if not on CD even outside window
+        }
+
+        LivingEntity target = attacker;
+        if (target == null) {
+            // Find nearest hostile in front
+            target = level.getNearestEntity(LivingEntity.class,
+                    net.minecraft.world.entity.ai.targeting.TargetingConditions.forCombat().range(6),
+                    player, player.getX(), player.getY(), player.getZ(),
+                    player.getBoundingBox().inflate(6));
+        }
+        if (target == null || target == player) return false;
+
+        AbilityHelper.afterimageBurst(level, player.position().add(0, 1, 0));
+        AbilityHelper.broadcastAnim(player, "paradox_step");
+        level.playSound(null, player.getX(), player.getY(), player.getZ(),
+                ModSounds.PARADOX.get(), SoundSource.PLAYERS, 1.0f, 1.1f);
+
+        Optional<Vec3> behind = AbilityHelper.behindTarget(target, player);
+        behind.ifPresent(p -> AbilityHelper.teleportPlayerNoDamage(player, p));
+
+        // Auto crit slash
+        target.hurt(level.damageSources().playerAttack(player), 12.0f);
+        com.enderblade.effect.VoidMarkEffect.applyOrStack(target, player);
+        AbilityHelper.spatialBurst(level, target.position().add(0, 1, 0));
+
+        data.paradoxCooldownUntil = now + AbilityHelper.PARADOX_COOLDOWN;
+        data.paradoxWindowUntil = 0;
+        return true;
+    }
+
+    // =====================================================================
+    // Ultimate
+    // =====================================================================
+
+    private InteractionResultHolder<ItemStack> tryUltimate(ServerLevel level, ServerPlayer player,
+                                                           ItemStack stack, PlayerBladeData data, long now) {
+        if (!activateUltimate(level, player, data, now)) {
+            return InteractionResultHolder.fail(stack);
+        }
+        return InteractionResultHolder.sidedSuccess(stack, false);
+    }
+
+    /** Keybind / network entry for the End Dimension ultimate. */
+    public static boolean tryUltimatePublic(ServerLevel level, ServerPlayer player) {
+        if (!player.getMainHandItem().is(ModItems.ENDER_BLADE.get())
+                && !player.getOffhandItem().is(ModItems.ENDER_BLADE.get())) {
+            return false;
+        }
+        PlayerBladeData data = AbilityHelper.data(player);
+        return activateUltimate(level, player, data, level.getGameTime());
+    }
+
+    private static boolean activateUltimate(ServerLevel level, ServerPlayer player,
+                                            PlayerBladeData data, long now) {
+        if (data.isOnCooldown(now, data.ultimateCooldownUntil)) {
+            return false;
+        }
+        EndDimensionZoneEntity zone = new EndDimensionZoneEntity(level, player.position(), player.getUUID());
+        level.addFreshEntity(zone);
+        data.ultimateCooldownUntil = now + AbilityHelper.ULTIMATE_COOLDOWN;
+        level.playSound(null, player.getX(), player.getY(), player.getZ(),
+                ModSounds.ULTIMATE.get(), SoundSource.PLAYERS, 1.2f, 0.8f);
+        AbilityHelper.broadcastAnim(player, "ultimate");
+        AbilityHelper.broadcastVfx(level, player.position(), "ultimate_start", 2.0f);
+        return true;
+    }
+
+    // =====================================================================
     // Tooltip
-    // -------------------------------------------------------------------------
+    // =====================================================================
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context,
-                                List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.translatable("item.enderblade.ender_blade.desc.passive")
+    public void appendHoverText(ItemStack stack, Item.TooltipContext ctx,
+                                List<Component> tip, TooltipFlag flag) {
+        tip.add(Component.translatable("item.enderblade.ender_blade.desc.passive")
                 .withStyle(ChatFormatting.DARK_PURPLE));
-        tooltip.add(Component.translatable("item.enderblade.ender_blade.desc.active")
+        tip.add(Component.translatable("item.enderblade.ender_blade.desc.echo")
                 .withStyle(ChatFormatting.LIGHT_PURPLE));
-        tooltip.add(Component.translatable("item.enderblade.ender_blade.desc.reach")
+        tip.add(Component.translatable("item.enderblade.ender_blade.desc.anchor")
+                .withStyle(ChatFormatting.DARK_AQUA));
+        tip.add(Component.translatable("item.enderblade.ender_blade.desc.slash")
+                .withStyle(ChatFormatting.BLUE));
+        tip.add(Component.translatable("item.enderblade.ender_blade.desc.paradox")
+                .withStyle(ChatFormatting.AQUA));
+        tip.add(Component.translatable("item.enderblade.ender_blade.desc.ultimate")
+                .withStyle(ChatFormatting.GOLD));
+        tip.add(Component.translatable("item.enderblade.ender_blade.desc.reach")
                 .withStyle(ChatFormatting.GRAY));
     }
 
-    // -------------------------------------------------------------------------
-    // Utility helpers
-    // -------------------------------------------------------------------------
-
-    /**
-     * Attempts to find a collision-safe landing spot near {@code origin} within {@code radius}.
-     * The target's bounding-box dimensions are respected so large mobs don't clip into walls.
-     */
-    public static Optional<Vec3> findSafeTeleportPos(ServerLevel level, LivingEntity entity,
-                                                     Vec3 origin, double radius,
-                                                     RandomSource random, int attempts) {
-        float width = entity.getBbWidth();
-        float height = entity.getBbHeight();
-
-        for (int i = 0; i < attempts; i++) {
-            double dx = (random.nextDouble() * 2.0D - 1.0D) * radius;
-            double dy = (random.nextDouble() * 2.0D - 1.0D) * radius * 0.6D;
-            double dz = (random.nextDouble() * 2.0D - 1.0D) * radius;
-
-            double x = origin.x + dx;
-            double y = Mth.clamp(origin.y + dy, level.getMinBuildHeight() + 1, level.getMaxBuildHeight() - 2);
-            double z = origin.z + dz;
-
-            // Snap slightly upward if standing inside a solid block
-            BlockPos feet = BlockPos.containing(x, y, z);
-            BlockState feetState = level.getBlockState(feet);
-            if (!feetState.getCollisionShape(level, feet).isEmpty()) {
-                y = feet.getY() + 1.0D;
-            }
-
-            AABB box = new AABB(
-                    x - width / 2.0D, y, z - width / 2.0D,
-                    x + width / 2.0D, y + height, z + width / 2.0D
-            );
-
-            if (level.noCollision(entity, box) && !level.containsAnyLiquid(box)) {
-                return Optional.of(new Vec3(x, y, z));
-            }
-        }
-        return Optional.empty();
-    }
-
-    public static void spawnPortalBurst(ServerLevel level, Vec3 pos) {
-        level.sendParticles(ParticleTypes.PORTAL,
-                pos.x, pos.y + 0.5D, pos.z,
-                32, 0.35, 0.6, 0.35, 0.15);
-    }
-
-    public static void spawnWidePortalBurst(ServerLevel level, Vec3 pos) {
-        level.sendParticles(ParticleTypes.PORTAL,
-                pos.x, pos.y + 0.8D, pos.z,
-                80, 0.8, 1.0, 0.8, 0.25);
-        level.sendParticles(ParticleTypes.REVERSE_PORTAL,
-                pos.x, pos.y + 0.5D, pos.z,
-                24, 0.4, 0.5, 0.4, 0.05);
+    @Override
+    public boolean isFoil(ItemStack stack) {
+        // Soft epic glow without vanilla enchant glint spam — keep false; emissive model handles it
+        return false;
     }
 }

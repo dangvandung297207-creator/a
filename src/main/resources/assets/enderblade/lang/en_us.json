@@ -1,8 +1,22 @@
 {
   "item.enderblade.ender_blade": "Ender Blade",
-  "item.enderblade.ender_blade.desc.passive": "Void Slash: 20% chance to chaotic-teleport hit targets",
-  "item.enderblade.ender_blade.desc.active": "Shift + Right Click: Launch / recall Ender Phantom",
-  "item.enderblade.ender_blade.desc.reach": "+1 Entity Reach",
+  "item.enderblade.ender_blade.desc.passive": "Void Slash: 20% chance to displace targets through fractured space",
+  "item.enderblade.ender_blade.desc.echo": "RMB: Launch Ender Echo · RMB again (2s): Teleport · 12s CD",
+  "item.enderblade.ender_blade.desc.anchor": "Shift+RMB: Place / recall Void Anchor",
+  "item.enderblade.ender_blade.desc.slash": "Key R: Dimensional Void Slash",
+  "item.enderblade.ender_blade.desc.paradox": "Key V: Paradox Step (counter / blink crit)",
+  "item.enderblade.ender_blade.desc.ultimate": "Key G / Sprint+Shift+RMB: End Dimension ultimate",
+  "item.enderblade.ender_blade.desc.reach": "+1 Entity Reach (4 blocks) · Void Mark ×3 → Rift Collapse",
   "itemGroup.enderblade": "Ender Blade",
-  "entity.enderblade.ender_phantom": "Ender Phantom"
+  "entity.enderblade.ender_echo": "Ender Echo",
+  "entity.enderblade.void_anchor": "Void Anchor",
+  "entity.enderblade.void_slash": "Void Slash",
+  "entity.enderblade.end_dimension_zone": "End Dimension",
+  "effect.enderblade.void_mark": "Void Mark",
+  "key.categories.enderblade": "Ender Blade",
+  "key.enderblade.void_slash": "Void Slash",
+  "key.enderblade.paradox": "Paradox Step",
+  "key.enderblade.ultimate": "End Dimension",
+  "death.attack.enderblade.void": "%1$s was unmade by spatial collapse",
+  "death.attack.enderblade.void.player": "%1$s was unmade by %2$s's dimensional cut"
 }

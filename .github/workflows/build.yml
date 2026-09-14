@@ -12,65 +12,43 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '21'
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-
-      - name: Build
-        run: ./gradlew build --no-daemon --stacktrace
-
+      - uses: gradle/actions/setup-gradle@v4
+      - run: chmod +x gradlew && ./gradlew build --no-daemon --stacktrace
       - name: Prepare dist
         run: |
-          mkdir -p dist
-          # Prefer the non-sources, non-javadoc jar
-          cp build/libs/enderblade-*.jar dist/
+          mkdir -p dist release
+          cp build/libs/enderblade-*.jar dist/ || true
           rm -f dist/*-sources.jar dist/*-javadoc.jar
-          ls -lah dist/ build/libs/
-
-      - name: Upload mod JAR artifact
-        uses: actions/upload-artifact@v4
+          cp dist/*.jar release/ 2>/dev/null || true
+          ls -lah build/libs dist release || true
+      - uses: actions/upload-artifact@v4
         with:
           name: enderblade-mod
           path: dist/*.jar
           if-no-files-found: error
-
-      # Commit the built jar into the branch so it is downloadable via git/API
-      # (Azure blob artifact downloads are blocked in some sandboxes).
-      - name: Commit JAR to repository
+      - name: Commit JAR
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          mkdir -p release
-          cp dist/*.jar release/
-          git add release/*.jar
-          # Only commit if there is a change
-          if git diff --cached --quiet; then
-            echo "No jar changes to commit"
-          else
+          git add -f release/*.jar 2>/dev/null || true
+          if git diff --cached --quiet; then echo "no jar change"; else
             git commit -m "ci: add built enderblade mod JAR"
             git push origin HEAD
           fi
-
-      - name: Create/update GitHub Release
+      - name: Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           TAG="enderblade-1.0.0"
-          # Delete existing tag/release if present so we can re-upload
           gh release delete "$TAG" -y 2>/dev/null || true
-          git tag -d "$TAG" 2>/dev/null || true
-          git push origin ":refs/tags/$TAG" 2>/dev/null || true
           git tag -f "$TAG"
           git push origin "$TAG" --force
           gh release create "$TAG" dist/*.jar \
             --title "Ender Blade 1.0.0" \
-            --notes "NeoForge 1.21.1 mod JAR for Đoản Kiếm Hư Không (Ender Blade)." \
+            --notes "Đoản Kiếm Hư Không — full NeoForge 1.21.1 weapon mod." \
             --latest

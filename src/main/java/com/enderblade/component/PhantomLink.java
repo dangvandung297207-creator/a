@@ -11,9 +11,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 /**
- * Data component stored on the Ender Blade item stack.
- * Tracks the currently active {@link com.enderblade.entity.EnderPhantomProjectile}
- * and the game-time tick at which the phantom expires (40 ticks / 2 seconds lifetime).
+ * Links the Ender Blade stack to an active Ender Echo projectile.
  */
 public record PhantomLink(Optional<UUID> projectileId, long expireGameTime) {
 
@@ -32,11 +30,11 @@ public record PhantomLink(Optional<UUID> projectileId, long expireGameTime) {
             PhantomLink::new
     );
 
-    public static PhantomLink of(UUID projectileId, long expireGameTime) {
-        return new PhantomLink(Optional.of(projectileId), expireGameTime);
+    public static PhantomLink of(UUID id, long expireAt) {
+        return new PhantomLink(Optional.of(id), expireAt);
     }
 
-    public boolean isActive(long currentGameTime) {
-        return projectileId.isPresent() && currentGameTime <= expireGameTime;
+    public boolean isActive(long gameTime) {
+        return projectileId.isPresent() && gameTime <= expireGameTime;
     }
 }

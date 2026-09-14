@@ -8,20 +8,17 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-/**
- * Creative mode tab registration.
- */
 public final class ModCreativeTabs {
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, EnderBladeMod.MOD_ID);
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> ENDER_BLADE_TAB =
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TAB =
             CREATIVE_MODE_TABS.register("ender_blade_tab", () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.enderblade"))
                     .withTabsBefore(CreativeModeTabs.COMBAT)
                     .icon(() -> ModItems.ENDER_BLADE.get().getDefaultInstance())
-                    .displayItems((parameters, output) -> output.accept(ModItems.ENDER_BLADE.get()))
+                    .displayItems((params, out) -> out.accept(ModItems.ENDER_BLADE.get()))
                     .build());
 
     private ModCreativeTabs() {
