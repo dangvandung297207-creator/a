@@ -5,6 +5,9 @@ on:
     branches: ['**']
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,18 +27,50 @@ jobs:
       - name: Build
         run: ./gradlew build --no-daemon --stacktrace
 
-      - name: Upload mod JAR
+      - name: Prepare dist
+        run: |
+          mkdir -p dist
+          # Prefer the non-sources, non-javadoc jar
+          cp build/libs/enderblade-*.jar dist/
+          rm -f dist/*-sources.jar dist/*-javadoc.jar
+          ls -lah dist/ build/libs/
+
+      - name: Upload mod JAR artifact
         uses: actions/upload-artifact@v4
         with:
           name: enderblade-mod
-          path: |
-            build/libs/*.jar
-            !build/libs/*-sources.jar
-            !build/libs/*-javadoc.jar
+          path: dist/*.jar
           if-no-files-found: error
 
-      - name: Upload to release assets folder
+      # Commit the built jar into the branch so it is downloadable via git/API
+      # (Azure blob artifact downloads are blocked in some sandboxes).
+      - name: Commit JAR to repository
         run: |
-          mkdir -p dist
-          cp build/libs/enderblade-*.jar dist/ || cp build/libs/*.jar dist/
-          ls -lh dist/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          mkdir -p release
+          cp dist/*.jar release/
+          git add release/*.jar
+          # Only commit if there is a change
+          if git diff --cached --quiet; then
+            echo "No jar changes to commit"
+          else
+            git commit -m "ci: add built enderblade mod JAR"
+            git push origin HEAD
+          fi
+
+      - name: Create/update GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="enderblade-1.0.0"
+          # Delete existing tag/release if present so we can re-upload
+          gh release delete "$TAG" -y 2>/dev/null || true
+          git tag -d "$TAG" 2>/dev/null || true
+          git push origin ":refs/tags/$TAG" 2>/dev/null || true
+          git tag -f "$TAG"
+          git push origin "$TAG" --force
+          gh release create "$TAG" dist/*.jar \
+            --title "Ender Blade 1.0.0" \
+            --notes "NeoForge 1.21.1 mod JAR for Đoản Kiếm Hư Không (Ender Blade)." \
+            --latest
