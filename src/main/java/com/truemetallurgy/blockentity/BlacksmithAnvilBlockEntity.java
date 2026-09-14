@@ -419,7 +419,7 @@ public class BlacksmithAnvilBlockEntity extends BlockEntity implements MenuProvi
         if (tag.contains("Session", Tag.TAG_COMPOUND)) {
             session.load(tag.getCompound("Session"));
         } else {
-            session.retarget(new java.util.Random());
+            session.retarget(net.minecraft.util.RandomSource.create());
         }
     }
 

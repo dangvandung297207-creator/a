@@ -39,7 +39,7 @@ public class ForgingSession {
     }
 
     /** Shift the target zone after every resolved strike. */
-    public void retarget(java.util.Random random) {
+    public void retarget(net.minecraft.util.RandomSource random) {
         this.targetX = (random.nextFloat() - 0.5F) * 0.56F;
         this.targetZ = (random.nextFloat() - 0.5F) * 0.56F;
     }
