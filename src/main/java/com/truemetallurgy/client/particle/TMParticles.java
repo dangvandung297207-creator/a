@@ -34,7 +34,7 @@ public final class TMParticles {
         }
 
         @Override
-        protected float getQuadSize(float scaleFactor) {
+        public float getQuadSize(float scaleFactor) {
             float f = 1.0F - ((float) age / (float) lifetime);
             return this.quadSize * Math.max(0.0F, f);
         }
@@ -81,7 +81,7 @@ public final class TMParticles {
         }
 
         @Override
-        protected float getQuadSize(float scaleFactor) {
+        public float getQuadSize(float scaleFactor) {
             float f = 1.0F - ((float) age / (float) lifetime);
             return this.quadSize * Math.max(0.2F, f);
         }
@@ -129,7 +129,7 @@ public final class TMParticles {
         }
 
         @Override
-        protected float getQuadSize(float scaleFactor) {
+        public float getQuadSize(float scaleFactor) {
             float f = (float) age / (float) lifetime;
             return this.quadSize * (1.0F + f * 1.6F);
         }
@@ -169,7 +169,7 @@ public final class TMParticles {
         }
 
         @Override
-        protected float getQuadSize(float scaleFactor) {
+        public float getQuadSize(float scaleFactor) {
             float f = 1.0F - ((float) age / (float) lifetime);
             return this.quadSize * Math.max(0.0F, f);
         }

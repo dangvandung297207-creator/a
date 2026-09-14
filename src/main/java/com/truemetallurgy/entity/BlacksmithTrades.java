@@ -8,6 +8,8 @@ import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 
+import java.util.Optional;
+
 /** The blacksmith's stock: fuels, materials, handles and rare blueprints. */
 public final class BlacksmithTrades {
     private BlacksmithTrades() {}
@@ -33,7 +35,7 @@ public final class BlacksmithTrades {
         // The prize: a legendary design. One per restock, rarely in stock.
         if (random.nextFloat() < 0.6F) {
             offers.add(new MerchantOffer(cost(Items.EMERALD, 24),
-                cost(Items.DIAMOND, 2), new ItemStack(ModItems.KINGS_EDGE_BLUEPRINT.get(), 1), 1, 10, 0.2F));
+                Optional.of(cost(Items.DIAMOND, 2)), new ItemStack(ModItems.KINGS_EDGE_BLUEPRINT.get(), 1), 1, 10, 0.2F));
         }
         return offers;
     }
