@@ -54,7 +54,7 @@ public final class AbilityHelper {
     }
 
     public static void broadcastVfx(ServerLevel level, Vec3 pos, String type, float scale) {
-        PacketDistributor.sendToPlayersNear(level, null, pos.x, pos.y, pos.z, 48.0,
+        PacketDistributor.sendToPlayersInDimension(level,
                 new SpawnVfxPayload(type, pos.x, pos.y, pos.z, scale));
     }
 

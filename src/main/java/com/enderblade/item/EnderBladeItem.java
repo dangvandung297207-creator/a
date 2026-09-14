@@ -269,11 +269,16 @@ public class EnderBladeItem extends SwordItem {
 
         LivingEntity target = attacker;
         if (target == null) {
-            // Find nearest hostile in front
-            target = level.getNearestEntity(LivingEntity.class,
-                    net.minecraft.world.entity.ai.targeting.TargetingConditions.forCombat().range(6),
-                    player, player.getX(), player.getY(), player.getZ(),
-                    player.getBoundingBox().inflate(6));
+            double best = 36.0;
+            for (LivingEntity e : level.getEntitiesOfClass(LivingEntity.class,
+                    player.getBoundingBox().inflate(6.0),
+                    liv -> liv.isAlive() && liv != player && liv.hasLineOfSight(player))) {
+                double d = e.distanceToSqr(player);
+                if (d < best) {
+                    best = d;
+                    target = e;
+                }
+            }
         }
         if (target == null || target == player) return false;
 
