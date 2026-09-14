@@ -213,15 +213,18 @@ public final class ModNetworking {
     public record OpenJournalPayload(String itemName, int score, String materialId, String quenchId,
             int edge, float weight, String crafter) implements CustomPacketPayload {
         public static final Type<OpenJournalPayload> TYPE = new Type<>(TMUtil.rl("open_journal"));
-        public static final StreamCodec<RegistryFriendlyByteBuf, OpenJournalPayload> STREAM_CODEC = StreamCodec.composite(
-            ByteBufCodecs.STRING_UTF8, OpenJournalPayload::itemName,
-            ByteBufCodecs.VAR_INT, OpenJournalPayload::score,
-            ByteBufCodecs.STRING_UTF8, OpenJournalPayload::materialId,
-            ByteBufCodecs.STRING_UTF8, OpenJournalPayload::quenchId,
-            ByteBufCodecs.VAR_INT, OpenJournalPayload::edge,
-            ByteBufCodecs.FLOAT, OpenJournalPayload::weight,
-            ByteBufCodecs.STRING_UTF8, OpenJournalPayload::crafter,
-            OpenJournalPayload::new);
+        public static final StreamCodec<RegistryFriendlyByteBuf, OpenJournalPayload> STREAM_CODEC = StreamCodec.of(
+            (buf, v) -> {
+                buf.writeUtf(v.itemName());
+                buf.writeVarInt(v.score());
+                buf.writeUtf(v.materialId());
+                buf.writeUtf(v.quenchId());
+                buf.writeVarInt(v.edge());
+                buf.writeFloat(v.weight());
+                buf.writeUtf(v.crafter());
+            },
+            buf -> new OpenJournalPayload(buf.readUtf(), buf.readVarInt(), buf.readUtf(), buf.readUtf(),
+                buf.readVarInt(), buf.readFloat(), buf.readUtf()));
 
         @Override
         public Type<? extends CustomPacketPayload> type() {
